@@ -1,17 +1,14 @@
 ﻿using HealthcareManagementSystem.Application.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HealthcareManagementSystem.Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareManagementSystem.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {
-        private readonly GlobalBuyTicketContext context;
+        private readonly HealthcareManagementSystemDbContext context;
 
-        public BaseRepository(GlobalBuyTicketContext context)
+        public BaseRepository(HealthcareManagementSystemDbContext context)
         {
             this.context = context;
         }
@@ -55,6 +52,31 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
             context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return Result<T>.Success(entity);
+        }
+
+        Task<Result<T>> IAsyncRepository<T>.AddAsync(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Result<T>> IAsyncRepository<T>.DeleteAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Result<T>> IAsyncRepository<T>.FindByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Result<IReadOnlyList<T>>> IAsyncRepository<T>.GetPagedReponseAsync(int page, int size)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Result<T>> IAsyncRepository<T>.UpdateAsync(T entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
