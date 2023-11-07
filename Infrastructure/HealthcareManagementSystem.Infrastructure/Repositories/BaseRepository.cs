@@ -53,30 +53,5 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
             await context.SaveChangesAsync();
             return Result<T>.Success(entity);
         }
-
-        Task<Result<T>> IAsyncRepository<T>.AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Result<T>> IAsyncRepository<T>.DeleteAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Result<T>> IAsyncRepository<T>.FindByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Result<IReadOnlyList<T>>> IAsyncRepository<T>.GetPagedReponseAsync(int page, int size)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Result<T>> IAsyncRepository<T>.UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
