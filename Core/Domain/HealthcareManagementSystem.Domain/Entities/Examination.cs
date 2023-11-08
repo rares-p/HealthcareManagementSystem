@@ -1,6 +1,6 @@
-﻿using HealthcareManagementSystem.Infrastructure.Data;
+﻿using HealthcareManagementSystem.Domain.Data;
 
-namespace HealthcareManagementSystem.Infrastructure.Entities
+namespace HealthcareManagementSystem.Domain.Entities
 {
     public class Examination
     {

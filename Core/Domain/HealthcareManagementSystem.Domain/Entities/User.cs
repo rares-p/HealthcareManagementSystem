@@ -1,4 +1,4 @@
-﻿namespace HealthcareManagementSystem.Infrastructure.Entities
+﻿namespace HealthcareManagementSystem.Domain.Entities
 {
     public class User
     {
