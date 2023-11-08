@@ -16,5 +16,10 @@ namespace HealthcareManagementSystem.Domain.Entities
         public Guid MedicId { get; private set; }
         public DateTime Date { get; private set; }
         public Department Department { get; private set; }
+
+        public static Result<Examination> Create(DateTime date, Department department)
+        {
+            return Result<Examination>.Success(new Examination(date, department));
+        }
     }
 }
