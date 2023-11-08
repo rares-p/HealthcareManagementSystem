@@ -145,3 +145,4 @@ publish/
 
 # NuGet Packages
 *.nupkg
+UpgradeLog.htm
