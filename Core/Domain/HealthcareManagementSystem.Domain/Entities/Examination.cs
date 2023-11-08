@@ -1,8 +1,9 @@
-﻿using HealthcareManagementSystem.Domain.Data;
+﻿using HealthcareManagementSystem.Domain.Common;
+using HealthcareManagementSystem.Domain.Data;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
-    public class Examination
+    public class Examination : AuditableEntity
     {
         private Examination(DateTime date, Department department)
         {

@@ -1,6 +1,8 @@
-﻿namespace HealthcareManagementSystem.Domain.Entities
+﻿using HealthcareManagementSystem.Domain.Common;
+
+namespace HealthcareManagementSystem.Domain.Entities
 {
-    public class Medication
+    public class Medication : AuditableEntity
     {
         private Medication(string name)
         {

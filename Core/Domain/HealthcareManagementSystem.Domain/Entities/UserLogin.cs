@@ -1,6 +1,8 @@
-﻿namespace HealthcareManagementSystem.Domain.Entities
+﻿using HealthcareManagementSystem.Domain.Common;
+
+namespace HealthcareManagementSystem.Domain.Entities
 {
-    public class UserLogin
+    public class UserLogin : AuditableEntity
     {
         private UserLogin(string username, string password, string email)
         {

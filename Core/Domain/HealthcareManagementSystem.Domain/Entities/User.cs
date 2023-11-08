@@ -1,6 +1,8 @@
-﻿namespace HealthcareManagementSystem.Domain.Entities
+﻿using HealthcareManagementSystem.Domain.Common;
+
+namespace HealthcareManagementSystem.Domain.Entities
 {
-    public class User
+    public class User : AuditableEntity
     {
         private User(string firstName, string lastName, string phoneNumber, DateTime dateOfBirth)
         {

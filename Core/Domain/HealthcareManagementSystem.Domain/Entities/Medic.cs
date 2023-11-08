@@ -4,7 +4,7 @@ using HealthcareManagementSystem.Domain.Data;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
-    public class Medic
+    public class Medic : AuditableEntity
     {
         private Medic(string firstName, string lastName, Department department, MailAddress mail)
         {

@@ -1,6 +1,8 @@
-﻿namespace HealthcareManagementSystem.Domain.Entities
+﻿using HealthcareManagementSystem.Domain.Common;
+
+namespace HealthcareManagementSystem.Domain.Entities
 {
-    public class MedicationReminder
+    public class MedicationReminder : AuditableEntity
     {
         public MedicationReminder(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
