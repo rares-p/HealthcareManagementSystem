@@ -1,4 +1,6 @@
-﻿using HealthcareManagementSystem.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareManagementSystem.Domain.Common;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
@@ -10,8 +12,7 @@ namespace HealthcareManagementSystem.Domain.Entities
             Password = password;
             Email = email;
         }
-
-        public Guid UserId { get; private set; }
+        public User User { get; private set; }
         public string Username { get; private set;}
         public string Password { get; private set;}
         public string Email { get; private set;}

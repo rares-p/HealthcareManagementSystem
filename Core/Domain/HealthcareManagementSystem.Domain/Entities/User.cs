@@ -1,4 +1,5 @@
-﻿using HealthcareManagementSystem.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareManagementSystem.Domain.Common;
 using HealthcareManagementSystem.Domain.Data;
 
 namespace HealthcareManagementSystem.Domain.Entities

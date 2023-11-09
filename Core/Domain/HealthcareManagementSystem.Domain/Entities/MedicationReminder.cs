@@ -1,4 +1,5 @@
-﻿using HealthcareManagementSystem.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareManagementSystem.Domain.Common;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
@@ -15,8 +16,8 @@ namespace HealthcareManagementSystem.Domain.Entities
             HourList = hourList;
         }
         public Guid Id { get; private set; }
-        public Guid UserId { get; private set; }
-        public Guid MedicationId { get; private set; }
+        public User User { get; private set; }
+        public Medication Medication { get; private set; }
         public uint Dosage { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }

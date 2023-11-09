@@ -1,4 +1,5 @@
-﻿using HealthcareManagementSystem.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using HealthcareManagementSystem.Domain.Common;
 using HealthcareManagementSystem.Domain.Data;
 
 namespace HealthcareManagementSystem.Domain.Entities
@@ -12,8 +13,8 @@ namespace HealthcareManagementSystem.Domain.Entities
             Department = department;
         }
         public Guid Id { get; private set; }
-        public Guid UserId { get; private set; }
-        public Guid MedicId { get; private set; }
+        public User User { get; private set; }
+        public Medic Medic { get; private set; }
         public DateTime Date { get; private set; }
         public Department Department { get; private set; }
 
