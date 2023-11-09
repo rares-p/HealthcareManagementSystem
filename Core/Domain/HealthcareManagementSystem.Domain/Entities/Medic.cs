@@ -6,21 +6,21 @@ namespace HealthcareManagementSystem.Domain.Entities
 {
     public class Medic : AuditableEntity
     {
-        private Medic(string firstName, string lastName, Department department, string mail)
+        private Medic(string firstName, string lastName, Department department, string email)
         {
             Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             Department = department;
-            Mail = mail;
+            Email = email;
         }
         public Guid Id { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public Department Department { get; private set; }
-        public string Mail { get; private set; }
+        public string Email { get; private set; }
 
-        public static Result<Medic> Create(string firstName, string lastName, Department department, MailAddress mail)
+        public static Result<Medic> Create(string firstName, string lastName, Department department, string email)
         {
             if(string.IsNullOrWhiteSpace(firstName))
                 return Result<Medic>.Failure("First Name is required");
@@ -28,10 +28,16 @@ namespace HealthcareManagementSystem.Domain.Entities
             if(string.IsNullOrWhiteSpace(lastName))
                 return Result<Medic>.Failure("Last Name is required");
 
-            if(mail is null)
-                return Result<Medic>.Failure("Invalid mail!");
+            try
+            {
+                new MailAddress(email);
+            }
+            catch
+            {
+                return Result<Medic>.Failure("Provided mail address is not valid");
+            }
 
-            return Result<Medic>.Success(new Medic(firstName, lastName, department, mail.Address));
+            return Result<Medic>.Success(new Medic(firstName, lastName, department, email));
         }
     }
 }
