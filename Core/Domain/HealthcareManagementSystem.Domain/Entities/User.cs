@@ -1,18 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Net.Mail;
+using System.Text.RegularExpressions;
 using HealthcareManagementSystem.Domain.Common;
-using HealthcareManagementSystem.Domain.Data;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
     public class User : AuditableEntity
     {
-        private User(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber)
+        private User(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber,
+            string username, string password, string email)
         {
             Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
             DateOfBirth = dateOfBirth;
+            Username = username;
+            Password = password;
+            Email = email;
         }
 
         public Guid Id { get; private set; }
@@ -20,8 +24,12 @@ namespace HealthcareManagementSystem.Domain.Entities
         public string LastName { get; private set; }
         public DateTime DateOfBirth { get; private set; }
         public string PhoneNumber { get; private set; }
+        public string Username { get; private set; }
+        public string Password { get; private set; }
+        public string Email { get; private set; }
 
-        public static Result<User> Create(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber)
+        public static Result<User> Create(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber,
+            string username, string password, string email)
         {
             if (string.IsNullOrWhiteSpace(firstName))
                 return Result<User>.Failure("First Name is required");
@@ -35,10 +43,25 @@ namespace HealthcareManagementSystem.Domain.Entities
             if (string.IsNullOrWhiteSpace(phoneNumber))
                 return Result<User>.Failure("Phone number is required");
 
-            if (phoneNumber[0] != 0 && phoneNumber.Length != 10)
+            if (!Regex.IsMatch(phoneNumber, "0[0-9]{9}"))
                 return Result<User>.Failure("Phone number is not valid");
 
-            return Result<User>.Success(new User(firstName, lastName, dateOfBirth, phoneNumber));
+            if (string.IsNullOrWhiteSpace(username))
+                return Result<User>.Failure("Username is required");
+
+            if (string.IsNullOrWhiteSpace(password))
+                return Result<User>.Failure("Password is required");
+
+            try
+            {
+                new MailAddress(email);
+            }
+            catch
+            {
+                return Result<User>.Failure("Provided mail address is not valid");
+            }
+
+            return Result<User>.Success(new User(firstName, lastName, dateOfBirth, phoneNumber, username, password, email));
         }
     }
 }

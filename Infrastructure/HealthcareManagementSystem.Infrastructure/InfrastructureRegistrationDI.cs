@@ -19,12 +19,11 @@ namespace HealthcareManagementSystem.Infrastructure
             services.AddScoped
             (typeof(IAsyncRepository<>),
                 typeof(BaseRepository<>));
-            services.AddScoped<UserRepository>();
-            services.AddScoped<UserLoginRepository>();
-            services.AddScoped<MedicRepository>();
-            services.AddScoped<MedicationReminderRepository>();
-            services.AddScoped<ExaminationRepository>();
-            services.AddScoped<MedicationRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMedicRepository, MedicRepository>();
+            services.AddScoped<IMedicationReminderRepository, MedicationReminderRepository>();
+            services.AddScoped<IExaminationRepository, ExaminationRepository>();
+            services.AddScoped<IMedicationRepository, MedicationRepository>();
 
             return services;
         }

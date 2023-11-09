@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HealthcareManagementSystem.Infrastructure.Repositories
 {
-    public class MedicationRepository : BaseRepository<Medication>, IAsyncRepository<Medication>
+    public class MedicationRepository : BaseRepository<Medication>, IMedicationRepository
     {
         public MedicationRepository(HealthcareManagementSystemDbContext context) : base(context)
         {

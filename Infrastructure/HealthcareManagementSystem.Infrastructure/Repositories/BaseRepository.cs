@@ -41,7 +41,7 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
             return Result<T>.Success(result);
         }
 
-        public virtual async Task<Result<IReadOnlyList<T>>> GetPagedReponseAsync(int page, int size)
+        public virtual async Task<Result<IReadOnlyList<T>>> GetPagedResponseAsync(int page, int size)
         {
             var result = await context.Set<T>().Skip(page).Take(size).AsNoTracking().ToListAsync();
             return Result<IReadOnlyList<T>>.Success(result);

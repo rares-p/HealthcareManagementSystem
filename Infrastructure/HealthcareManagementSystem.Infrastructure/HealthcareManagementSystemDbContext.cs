@@ -11,7 +11,6 @@ namespace HealthcareManagementSystem.Infrastructure
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<Medic> Medics { get; set; }
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Medication> Medications { get; set; }
@@ -19,7 +18,6 @@ namespace HealthcareManagementSystem.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserLogin>().HasNoKey();
             modelBuilder.HasDefaultSchema("healthcaremanagementsystem");
         }
     }
