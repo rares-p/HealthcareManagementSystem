@@ -28,14 +28,8 @@ namespace HealthcareManagementSystem.Domain.Entities
             if(string.IsNullOrWhiteSpace(lastName))
                 return Result<Medic>.Failure("Last Name is required");
 
-            try
-            {
-                new MailAddress(email);
-            }
-            catch
-            {
+            if(!MailAddress.TryCreate(email, out _))
                 return Result<Medic>.Failure("Provided mail address is not valid");
-            }
 
             return Result<Medic>.Success(new Medic(firstName, lastName, department, email));
         }
