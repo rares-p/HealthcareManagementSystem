@@ -9,5 +9,6 @@ namespace HealthcareManagementSystem.Application.Persistence
         Task<Result<T>> AddAsync(T entity);
         Task<Result<T>> DeleteAsync(Guid id);
         Task<Result<IReadOnlyList<T>>> GetPagedResponseAsync(int page, int size);
+        Task<Result<IReadOnlyList<T>>> GetAllAsync();
     }
 }

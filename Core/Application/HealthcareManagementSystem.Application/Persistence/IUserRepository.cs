@@ -4,5 +4,6 @@ namespace HealthcareManagementSystem.Application.Persistence
 {
     public interface IUserRepository : IAsyncRepository<User>
     {
+
     }
 }
