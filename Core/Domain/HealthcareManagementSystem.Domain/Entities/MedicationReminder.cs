@@ -5,12 +5,10 @@ namespace HealthcareManagementSystem.Domain.Entities
 {
     public class MedicationReminder : AuditableEntity
     {
-        private MedicationReminder(User user, Medication medication, uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
+        private MedicationReminder(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
             Id = Guid.NewGuid();
             HourList = hourList;
-            User = user;
-            Medication = medication;
             Dosage = dosage;
             StartDate = startDate;
             EndDate = endDate;
@@ -27,7 +25,7 @@ namespace HealthcareManagementSystem.Domain.Entities
         public uint DayInterval { get; private set; }
         public List<float> HourList { get; private set; }
 
-        public Result<MedicationReminder> Create(User user, Medication medication, uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
+        public Result<MedicationReminder> Create(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
             if(dosage is < 1 or > 10)
                 return Result<MedicationReminder>.Failure("Medication dosage is not valid!");
@@ -50,7 +48,7 @@ namespace HealthcareManagementSystem.Domain.Entities
                     return Result<MedicationReminder>.Failure("Minutes is an hour must be between 0 and 59!");
             }
 
-            return Result<MedicationReminder>.Success(new MedicationReminder(user, medication, dosage, startDate, endDate, dayInterval, hourList));
+            return Result<MedicationReminder>.Success(new MedicationReminder(dosage, startDate, endDate, dayInterval, hourList));
         }
     }
 }

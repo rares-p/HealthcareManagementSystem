@@ -1,3 +1,4 @@
+using HealthcareManagementSystem.Application;
 using HealthcareManagementSystem.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructureToDi(
     builder.Configuration);
-//TODO: Add MediatR
-//builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
