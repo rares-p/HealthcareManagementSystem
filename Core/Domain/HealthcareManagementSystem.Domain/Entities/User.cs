@@ -52,14 +52,8 @@ namespace HealthcareManagementSystem.Domain.Entities
             if (string.IsNullOrWhiteSpace(password))
                 return Result<User>.Failure("Password is required");
 
-            try
-            {
-                new MailAddress(email);
-            }
-            catch
-            {
+            if (!MailAddress.TryCreate(email, out _))
                 return Result<User>.Failure("Provided mail address is not valid");
-            }
 
             return Result<User>.Success(new User(firstName, lastName, dateOfBirth, phoneNumber, username, password, email));
         }

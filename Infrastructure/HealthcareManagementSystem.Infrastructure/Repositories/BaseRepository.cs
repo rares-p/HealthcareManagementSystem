@@ -6,16 +6,16 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
 {
     public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {
-        private readonly HealthcareManagementSystemDbContext context;
+        private readonly HealthcareManagementSystemDbContext _context;
 
         public BaseRepository(HealthcareManagementSystemDbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
         public virtual async Task<Result<T>> AddAsync(T entity)
         {
-            await context.Set<T>().AddAsync(entity);
-            await context.SaveChangesAsync();
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
             return Result<T>.Success(entity);
         }
 
@@ -24,8 +24,8 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
             var result = await FindByIdAsync(id);
             if (result != null)
             {
-                context.Set<T>().Remove(result.Value);
-                await context.SaveChangesAsync();
+                _context.Set<T>().Remove(result.Value);
+                await _context.SaveChangesAsync();
                 return Result<T>.Success(result.Value);
             }
             return Result<T>.Failure($"Entity with id {id} not found");
@@ -33,7 +33,7 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
 
         public virtual async Task<Result<T>> FindByIdAsync(Guid id)
         {
-            var result = await context.Set<T>().FindAsync(id);
+            var result = await _context.Set<T>().FindAsync(id);
             if (result == null)
             {
                 return Result<T>.Failure($"Entity with id {id} not found");
@@ -43,20 +43,20 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
 
         public virtual async Task<Result<IReadOnlyList<T>>> GetPagedResponseAsync(int page, int size)
         {
-            var result = await context.Set<T>().Skip(page).Take(size).AsNoTracking().ToListAsync();
+            var result = await _context.Set<T>().Skip(page).Take(size).AsNoTracking().ToListAsync();
             return Result<IReadOnlyList<T>>.Success(result);
         }
 
         public virtual async Task<Result<IReadOnlyList<T>>> GetAllAsync()
         {
-            var result = await context.Set<T>().AsNoTracking().ToListAsync();
+            var result = await _context.Set<T>().AsNoTracking().ToListAsync();
             return Result<IReadOnlyList<T>>.Success(result);
         }
 
         public virtual async Task<Result<T>> UpdateAsync(T entity)
         {
-            context.Entry(entity).State = EntityState.Modified;
-            await context.SaveChangesAsync();
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return Result<T>.Success(entity);
         }
     }

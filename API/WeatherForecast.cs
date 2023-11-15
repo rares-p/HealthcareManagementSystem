@@ -1,4 +1,4 @@
-namespace HealthcareManagementSystem
+namespace API
 {
     public class WeatherForecast
     {

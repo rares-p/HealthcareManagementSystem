@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using HealthcareManagementSystem.Domain.Entities;
 using System.Net.Mail;
 
 namespace HealthcareManagementSystem.Application.Features.Users.Commands.CreateUser
@@ -26,15 +25,7 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.CreateU
 
         private bool BeValidEmail(string email)
         {
-            try
-            {
-                new MailAddress(email);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return MailAddress.TryCreate(email, out _);
         }
     }
 }

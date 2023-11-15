@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using HealthcareManagementSystem.Application.Persistence;
+﻿using HealthcareManagementSystem.Application.Persistence;
 using HealthcareManagementSystem.Domain.Entities;
 using MediatR;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HealthcareManagementSystem.Domain.Common
+﻿namespace HealthcareManagementSystem.Domain.Common
 {
     public class Result<T> where T : class
     {
