@@ -1,5 +1,6 @@
 using HealthcareManagementSystem.Application.Features.Users.Commands.CreateUser;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetAll;
+using HealthcareManagementSystem.Application.Features.Users.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -23,6 +24,14 @@ namespace API.Controllers
             {
                 return BadRequest(result);
             }
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var result = await Mediator.Send(new GetByIdUserQuery(id));
             return Ok(result);
         }
     }
