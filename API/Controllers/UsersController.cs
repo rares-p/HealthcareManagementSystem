@@ -1,4 +1,5 @@
 using HealthcareManagementSystem.Application.Features.Users.Commands.CreateUser;
+using HealthcareManagementSystem.Application.Features.Users.Commands.DeleteUser;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetAll;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,14 @@ namespace API.Controllers
         {
             var result = await Mediator.Send(new GetByIdUserQuery(id));
             return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await Mediator.Send(new DeleteUserCommand(id));
+            return Accepted(result);
         }
     }
 
