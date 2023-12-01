@@ -22,13 +22,13 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
         public virtual async Task<Result<T>> DeleteAsync(Guid id)
         {
             var result = await FindByIdAsync(id);
-            if (result != null)
-            {
-                _context.Set<T>().Remove(result.Value);
-                await _context.SaveChangesAsync();
-                return Result<T>.Success(result.Value);
-            }
-            return Result<T>.Failure($"Entity with id {id} not found");
+
+            if (!result.IsSuccess)
+                return Result<T>.Failure($"Entity with id {id} not found");
+
+            _context.Set<T>().Remove(result.Value);
+            await _context.SaveChangesAsync();
+            return Result<T>.Success(result.Value);
         }
 
         public virtual async Task<Result<T>> FindByIdAsync(Guid id)

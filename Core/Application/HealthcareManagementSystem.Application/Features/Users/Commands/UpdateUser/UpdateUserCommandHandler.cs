@@ -110,9 +110,9 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.UpdateU
 
             try
             {
-                var updateResult = await _repository.UpdateAsync(user.Value);
+                await _repository.UpdateAsync(user.Value);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new UpdateUserCommandResponse()
                 {
