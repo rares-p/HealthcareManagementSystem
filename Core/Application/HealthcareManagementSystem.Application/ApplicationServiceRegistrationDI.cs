@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HealthcareManagementSystem.Application
 {
-    public static class ApplicationServiceRegistrationDI
+    public static class ApplicationServiceRegistrationDi
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {

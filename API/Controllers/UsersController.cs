@@ -1,5 +1,6 @@
 using HealthcareManagementSystem.Application.Features.Users.Commands.CreateUser;
 using HealthcareManagementSystem.Application.Features.Users.Commands.DeleteUser;
+using HealthcareManagementSystem.Application.Features.Users.Commands.UpdateUser;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetAll;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;
@@ -16,18 +17,6 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(CreateUserCommand command)
-        {
-            var result = await Mediator.Send(command);
-            if (!result.Success)
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
-        }
-
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid id)
@@ -36,11 +25,36 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Create(CreateUserCommand command)
+        {
+            var result = await Mediator.Send(command);
+            if (!result.Success)
+                return BadRequest(result);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
+        {
+            var result = await Mediator.Send(command);
+            if (!result.Success)
+                return BadRequest(result);
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await Mediator.Send(new DeleteUserCommand(id));
+            if (!result.Success)
+                return BadRequest(result);
             return Accepted(result);
         }
     }

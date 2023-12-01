@@ -57,5 +57,60 @@ namespace HealthcareManagementSystem.Domain.Entities
 
             return Result<User>.Success(new User(firstName, lastName, dateOfBirth, phoneNumber, username, password, email));
         }
+
+        public Result<User> UpdateFirstName(string firstName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+                return Result<User>.Failure("First Name is required");
+            FirstName = firstName;
+            return Result<User>.Success(this);
+        }
+
+        public Result<User> UpdateLastName(string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(lastName))
+                return Result<User>.Failure("Last Name is required");
+            LastName = lastName;
+            return Result<User>.Success(this);
+        }
+
+        public Result<User> UpdateDateOfBirth(DateTime dateOfBirth)
+        {
+            if ((DateTime.Now - dateOfBirth).TotalDays / 365.2425 > 120 || DateTime.Compare(DateTime.Now, dateOfBirth) < 0)
+                return Result<User>.Failure("Date of birth is invalid");
+            DateOfBirth = dateOfBirth;
+            return Result<User>.Success(this);
+        }
+
+        public Result<User> UpdatePhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return Result<User>.Failure("Phone number is required");
+            PhoneNumber = phoneNumber;
+            return Result<User>.Success(this);
+        }
+
+        public Result<User> UpdateUsername(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                return Result<User>.Failure("Username is required");
+            Username = username;
+            return Result<User>.Success(this);
+        }
+
+        public Result<User> UpdatePassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return Result<User>.Failure("Password is required");
+            Password = password;
+            return Result<User>.Success(this);
+        }
+        public Result<User> UpdateEmail(string email)
+        {
+            if (!MailAddress.TryCreate(email, out _))
+                return Result<User>.Failure("Provided mail address is not valid");
+            Email = email;
+            return Result<User>.Success(this);
+        }
     }
 }
