@@ -3,11 +3,11 @@ using MediatR;
 
 namespace HealthcareManagementSystem.Application.Features.Users.Commands.DeleteUser
 {
-    public class DeleteCommandHandler : IRequestHandler<DeleteUserCommand, DeleteUserCommandResponse>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, DeleteUserCommandResponse>
     {
         private readonly IUserRepository _userRepository;
 
-        public DeleteCommandHandler(IUserRepository userRepository)
+        public DeleteUserCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

@@ -2,6 +2,6 @@
 {
     public class GetAllMedicationsResponse
     {
-        public List<MedicationDto> Medication { get; set; }
+        public List<MedicationDto> Medications { get; set; }
     }
 }
