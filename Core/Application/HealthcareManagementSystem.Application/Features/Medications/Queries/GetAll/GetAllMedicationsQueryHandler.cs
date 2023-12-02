@@ -19,7 +19,7 @@ namespace HealthcareManagementSystem.Application.Features.Medications.Queries.Ge
 
             if (result.IsSuccess)
             {
-                response.Medication = result.Value.Select(medication => new MedicationDto()
+                response.Medications = result.Value.Select(medication => new MedicationDto()
                 {
                     Id = medication.Id,
                     Name = medication.Name,
