@@ -24,7 +24,7 @@ namespace HealthcareManagementSystem.Domain.Entities
         public uint DayInterval { get; private set; }
         public List<float> HourList { get; private set; }
 
-        public Result<MedicationReminder> Create(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
+        public static Result<MedicationReminder> Create(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
             if(dosage is < 1 or > 10)
                 return Result<MedicationReminder>.Failure("Medication dosage is not valid!");
