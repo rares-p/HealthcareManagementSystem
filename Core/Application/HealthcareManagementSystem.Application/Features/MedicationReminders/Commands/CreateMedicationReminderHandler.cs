@@ -4,18 +4,13 @@ using MediatR;
 
 namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands
 {
-    public class CreateMedicationReminderHandler : IRequestHandler<CreateMedicationReminderCommand, CreateMedicationReminderCommandResponse>
+    public class CreateMedicationReminderHandler(IMedicationReminderRepository medicationReminderRepository,
+            IUserRepository userRepository, IMedicationRepository medicationRepository)
+        : IRequestHandler<CreateMedicationReminderCommand, CreateMedicationReminderCommandResponse>
     {
-        private readonly IMedicationReminderRepository _medicationReminderRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IMedicationRepository _medicationRepository;
-
-        public CreateMedicationReminderHandler(IMedicationReminderRepository medicationReminderRepository, IUserRepository userRepository, IMedicationRepository medicationRepository)
-        {
-            _medicationReminderRepository = medicationReminderRepository;
-            _userRepository = userRepository;
-            _medicationRepository = medicationRepository;
-        }
+        private readonly IMedicationReminderRepository _medicationReminderRepository = medicationReminderRepository;
+        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IMedicationRepository _medicationRepository = medicationRepository;
 
         public async Task<CreateMedicationReminderCommandResponse> Handle(CreateMedicationReminderCommand request, CancellationToken cancellationToken)
         {
@@ -29,7 +24,7 @@ namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Co
                     ValidationsErrors = validatorResult.Errors.Select(e => e.ErrorMessage).ToList()
                 };
 
-            var userExists = _userRepository.FindByIdAsync(request.User.Id).Result;
+            var userExists = _userRepository.FindByIdAsync(request.UserId).Result;
             if (!userExists.IsSuccess)
                 return new CreateMedicationReminderCommandResponse
                 {
@@ -40,7 +35,7 @@ namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Co
                     }
                 };
 
-            var medicationExists = _medicationRepository.FindByIdAsync(request.Medication.Id).Result;
+            var medicationExists = _medicationRepository.FindByIdAsync(request.MedicationId).Result;
             if (!medicationExists.IsSuccess)
                 return new CreateMedicationReminderCommandResponse
                 {

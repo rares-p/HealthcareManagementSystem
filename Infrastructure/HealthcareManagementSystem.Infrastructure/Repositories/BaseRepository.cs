@@ -53,6 +53,11 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
             return Result<IReadOnlyList<T>>.Success(result);
         }
 
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            return await Context.Set<T>().FindAsync(id) != null;
+        }
+
         public virtual async Task<Result<T>> UpdateAsync(T entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
