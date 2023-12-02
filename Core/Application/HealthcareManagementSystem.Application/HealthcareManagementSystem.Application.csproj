@@ -11,4 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\HealthcareManagementSystem.Domain\HealthcareManagementSystem.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\Medications\Commands\" />
+  </ItemGroup>
 </Project>
