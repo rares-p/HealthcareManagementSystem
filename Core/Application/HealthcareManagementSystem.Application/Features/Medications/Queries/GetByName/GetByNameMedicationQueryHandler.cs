@@ -1,5 +1,4 @@
-﻿using HealthcareManagementSystem.Application.Features.Medications.Queries.GetById;
-using HealthcareManagementSystem.Application.Persistence;
+﻿using HealthcareManagementSystem.Application.Persistence;
 using MediatR;
 
 namespace HealthcareManagementSystem.Application.Features.Medications.Queries.GetByName
