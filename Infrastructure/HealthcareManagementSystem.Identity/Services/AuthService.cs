@@ -14,15 +14,16 @@ namespace HealthcareManagementSystem.Identity.Services
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration configuration;
-        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.configuration = configuration;
-
+            this.signInManager = signInManager;
         }
-        public async Task<(int, string)> Registeration(RegistrationModel model, string role)
+        public async Task<(int, string)> Registration(RegistrationModel model, string role)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
@@ -33,7 +34,10 @@ namespace HealthcareManagementSystem.Identity.Services
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
-                Name = model.Name
+                Firstname = model.Firstname,
+                Lastname = model.Lastname,
+                PhoneNumber = model.PhoneNumber,
+                DateOfBirth = model.DateOfBirth,
             };
             var createUserResult = await userManager.CreateAsync(user, model.Password);
             if (!createUserResult.Succeeded)
@@ -69,6 +73,12 @@ namespace HealthcareManagementSystem.Identity.Services
             }
             string token = GenerateToken(authClaims);
             return (1, token);
+        }
+
+        public async Task<(int, string)> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return (1, "User logged out successfully!");
         }
 
 
