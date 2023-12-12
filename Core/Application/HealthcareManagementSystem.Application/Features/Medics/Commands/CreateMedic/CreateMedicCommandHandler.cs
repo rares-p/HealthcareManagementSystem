@@ -26,7 +26,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
                 };
          
             var department = (Department)Enum.Parse(typeof(Department), request.Department);
-            var medic = Medic.Create(request.FirstName, request.LastName, department, request.Email);
+            var medic = Medic.Create(request.FirstName, request.LastName, department, request.AuthDataId);
 
             if (!medic.IsSuccess)
             {
@@ -42,13 +42,13 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
             return new CreateMedicCommandResponse
             {
                 Success = true,
-                Medic = new CreateMedicDto
+                Medic = new MedicDto
                 {
                     Id = medic.Value.Id,
                     FirstName = medic.Value.FirstName,
                     LastName = medic.Value.LastName,
                     Department = medic.Value.Department.ToString(),
-                    Email = medic.Value.Email
+                    AuthDataId = medic.Value.AuthDataId
                 }
             };
         }

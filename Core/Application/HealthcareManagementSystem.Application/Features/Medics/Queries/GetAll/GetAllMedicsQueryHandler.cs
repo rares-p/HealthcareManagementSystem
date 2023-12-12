@@ -24,7 +24,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Queries.GetAll
                     FirstName = medic.FirstName,
                     LastName = medic.LastName,
                     Department = medic.Department.ToString(),
-                    Email = medic.Email,
+                    AuthDataId = medic.AuthDataId,
                 }).ToList();
             }
 

@@ -5,6 +5,6 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
 {
     public class CreateMedicCommandResponse : BaseResponse
     {
-        public CreateMedicDto Medic { get; set; }
+        public MedicDto Medic { get; set; }
     }
 }
