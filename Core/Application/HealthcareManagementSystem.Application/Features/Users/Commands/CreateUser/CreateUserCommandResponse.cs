@@ -4,6 +4,6 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.CreateU
 {
     public class CreateUserCommandResponse : BaseResponse
     {
-        public CreateUserDto User { get; set; }
+        public UserDto User { get; set; }
     }
 }

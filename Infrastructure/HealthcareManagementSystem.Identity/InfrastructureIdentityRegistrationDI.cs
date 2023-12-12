@@ -21,7 +21,7 @@ namespace HealthcareManagementSystem.Identity
                options =>
                options.UseNpgsql(
                    configuration.GetConnectionString
-                   ("HealthcareManagementSystemDbConnection"),
+                   ("HealthcareManagementSystemDbConnectionIdentity"),
                    builder =>
                    builder.MigrationsAssembly(
                        typeof(ApplicationDbContext)
@@ -29,8 +29,8 @@ namespace HealthcareManagementSystem.Identity
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>()
-                            .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             // Adding Authentication  
             services.AddAuthentication(options =>
             {

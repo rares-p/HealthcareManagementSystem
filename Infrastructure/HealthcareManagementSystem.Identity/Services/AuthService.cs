@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using HealthcareManagementSystem.Domain.Common;
 
 namespace HealthcareManagementSystem.Identity.Services
 {
@@ -23,11 +24,11 @@ namespace HealthcareManagementSystem.Identity.Services
             this.configuration = configuration;
             this.signInManager = signInManager;
         }
-        public async Task<(int, string)> Registration(RegistrationModel model, string role)
+        public async Task<AuthResult> Registration(RegistrationModel model, string role)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return (0, "User already exists");
+                return AuthResult.Failure("User already exists");
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -41,7 +42,7 @@ namespace HealthcareManagementSystem.Identity.Services
             };
             var createUserResult = await userManager.CreateAsync(user, model.Password);
             if (!createUserResult.Succeeded)
-                return (0, "User creation failed! Please check user details and try again.");
+                return AuthResult.Failure("User creation failed! Please check user details and try again.");
 
             if (!await roleManager.RoleExistsAsync(role))
                 await roleManager.CreateAsync(new IdentityRole(role));
@@ -49,7 +50,7 @@ namespace HealthcareManagementSystem.Identity.Services
             if (await roleManager.RoleExistsAsync(UserRoles.User))
                 await userManager.AddToRoleAsync(user, role);
 
-            return (1, "User created successfully!");
+            return AuthResult.Success(user.Id);
         }
 
         public async Task<(int, string)> Login(LoginModel model)
