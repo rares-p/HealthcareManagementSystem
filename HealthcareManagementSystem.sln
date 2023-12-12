@@ -19,7 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4C1753
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.Domain", "Core\Domain\HealthcareManagementSystem.Domain\HealthcareManagementSystem.Domain.csproj", "{51CDB6B3-0E87-4635-9FC0-49289E733FA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareManagementSystem.Identity", "Infrastructure\HealthcareManagementSystem.Identity\HealthcareManagementSystem.Identity.csproj", "{46ED4352-AFDB-43F3-AA08-2FC4F10547C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.Identity", "Infrastructure\HealthcareManagementSystem.Identity\HealthcareManagementSystem.Identity.csproj", "{46ED4352-AFDB-43F3-AA08-2FC4F10547C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{CD0DDF87-35E9-4BF6-95EA-51EACEF34500}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.App", "HealthcareManagementSystem.App\HealthcareManagementSystem.App.csproj", "{3C981FC0-1D36-4484-9632-66702DB857BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,10 @@ Global
 		{46ED4352-AFDB-43F3-AA08-2FC4F10547C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46ED4352-AFDB-43F3-AA08-2FC4F10547C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46ED4352-AFDB-43F3-AA08-2FC4F10547C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C981FC0-1D36-4484-9632-66702DB857BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C981FC0-1D36-4484-9632-66702DB857BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C981FC0-1D36-4484-9632-66702DB857BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C981FC0-1D36-4484-9632-66702DB857BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +66,7 @@ Global
 		{4C175324-5547-4E75-A0F6-7F8F09062857} = {BADFCD94-81AC-41F9-964A-D960D008ACBB}
 		{51CDB6B3-0E87-4635-9FC0-49289E733FA4} = {4C175324-5547-4E75-A0F6-7F8F09062857}
 		{46ED4352-AFDB-43F3-AA08-2FC4F10547C9} = {96FA310F-3993-477F-AF8A-8CFCD76AD9B1}
+		{3C981FC0-1D36-4484-9632-66702DB857BC} = {CD0DDF87-35E9-4BF6-95EA-51EACEF34500}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18796020-F763-4BE7-A42F-34E367B04BAF}
