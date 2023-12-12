@@ -76,11 +76,14 @@ namespace API.Controllers
                     FirstName = model.Firstname,
                     LastName = model.Lastname,
                     DateOfBirth = model.DateOfBirth,
-                    AuthDataId = authResult.Id
+                    AuthDataId = authResult.Value
                 });
 
                 if (!result.Success)
+                {
+                    await _authService.DeleteUser(authResult.Value);
                     return BadRequest(result);
+                }
 
                 return CreatedAtAction(nameof(RegisterUser), model);
             }
@@ -114,11 +117,14 @@ namespace API.Controllers
                     FirstName = model.Firstname,
                     LastName = model.Lastname,
                     Department = model.Department,
-                    AuthDataId = authResult.Id
+                    AuthDataId = authResult.Value
                 });
 
                 if (!result.Success)
+                {
+                    await _authService.DeleteUser(authResult.Value);
                     return BadRequest(result);
+                }
 
                 return CreatedAtAction(nameof(RegisterMedic), model);
             }

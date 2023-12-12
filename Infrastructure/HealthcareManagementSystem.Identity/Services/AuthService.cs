@@ -25,11 +25,11 @@ namespace HealthcareManagementSystem.Identity.Services
             this.configuration = configuration;
             this.signInManager = signInManager;
         }
-        public async Task<AuthResult> Registration(RegistrationModel model, string role)
+        public async Task<Result<string>> Registration(RegistrationModel model, string role)
         {
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return AuthResult.Failure("User already exists");
+                return Result<string>.Failure("User already exists");
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -43,7 +43,7 @@ namespace HealthcareManagementSystem.Identity.Services
             };
             var createUserResult = await userManager.CreateAsync(user, model.Password);
             if (!createUserResult.Succeeded)
-                return AuthResult.Failure("User creation failed! Please check user details and try again.");
+                return Result<string>.Failure("User creation failed! Please check user details and try again.");
 
             if (!await roleManager.RoleExistsAsync(role))
                 await roleManager.CreateAsync(new IdentityRole(role));
@@ -51,7 +51,7 @@ namespace HealthcareManagementSystem.Identity.Services
             if (await roleManager.RoleExistsAsync(role))
                 await userManager.AddToRoleAsync(user, role);
 
-            return AuthResult.Success(user.Id);
+            return Result<string>.Success(user.Id);
         }
 
         public async Task<(int, string)> Login(LoginModel model)
@@ -81,6 +81,17 @@ namespace HealthcareManagementSystem.Identity.Services
         {
             await signInManager.SignOutAsync();
             return (1, "User logged out successfully!");
+        }
+
+        public async Task<(int, string)> DeleteUser(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+                return (0, "User does not exist");
+            var result = await userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+                return (0, "Could not delete user");
+            return (1, "User deleted successfully");
         }
 
 
