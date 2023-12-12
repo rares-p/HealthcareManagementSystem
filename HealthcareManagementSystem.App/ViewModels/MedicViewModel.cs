@@ -8,8 +8,10 @@ namespace HealthcareManagementSystem.App.ViewModels
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Medic's first name is required!")]
         public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public Department Department { get; set; }
+        [Required(ErrorMessage = "Medic's last name is required!")]
+		public string LastName { get; set; } = string.Empty;
+		[Required(ErrorMessage = "Medic must be part of a department!")]
+		public Department Department { get; set; }
         public string Email { get; set; } = string.Empty;
     }
 }
