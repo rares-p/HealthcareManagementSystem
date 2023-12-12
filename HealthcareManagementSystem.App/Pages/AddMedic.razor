@@ -1,0 +1,77 @@
+﻿@page "/addmedic"
+@using HealthcareManagementSystem.App.ViewModels
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.Domain.Entities
+
+<h3>New medic</h3>
+
+<EditForm Model="@MedicViewModel" OnValidSubmit="@HandleValidSubmit">
+
+	<DataAnnotationsValidator />
+	<ValidationSummary></ValidationSummary>
+
+	<div class="row mb-3 ms-2">
+		<label for="firstname" class="col-sm-3 form-label">Medic's first name:</label>
+		<div class="col-sm-5">
+			<InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
+			<ValidationMessage For="@(() => MedicViewModel.FirstName)" />
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Save medic (fist name)</button>
+	<button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+<EditForm Model="@MedicViewModel" OnValidSubmit="@HandleValidSubmit">
+
+	<DataAnnotationsValidator />
+	<ValidationSummary></ValidationSummary>
+
+	<div class="row mb-3 ms-2">
+		<label for="firstname" class="col-sm-3 form-label">Medic's first name:</label>
+		<div class="col-sm-5">
+			<InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
+			<ValidationMessage For="@(() => MedicViewModel.FirstName)" />
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Save medic (fist name)</button>
+	<button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+	[Inject]
+	public IMedicDataService MedicDataService { get; set; }
+
+	[Inject]
+	public NavigationManager NavigationManager { get; set; }
+
+	public MedicViewModel MedicViewModel { get; set; } = new MedicViewModel();
+
+	public string Message { get; set; }
+}
+
+@functions{
+	private async Task HandleValidSubmit()
+	{
+		var result = await MedicDataService.CreateMedicAsync(MedicViewModel);
+		if (result.IsSuccess)
+		{
+			Message = "Medic created successfully";
+			NavigationManager.NavigateTo("/medicoverview");
+		}
+		else
+		{
+			Message = result.Message;
+			if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+			{
+				Message += result.ValidationErrors;
+			}
+		}
+	}
+
+	private void Cancel()
+	{
+		NavigationManager.NavigateTo("/medicoverview");
+	}
+}
