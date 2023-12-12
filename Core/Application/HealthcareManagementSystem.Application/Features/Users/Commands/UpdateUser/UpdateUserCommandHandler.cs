@@ -64,50 +64,6 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.UpdateU
                     };
             }
 
-            if (request.Username != null)
-            {
-                var result = user.Value.UpdateUsername(request.Username);
-                if (!result.IsSuccess)
-                    return new UpdateUserCommandResponse()
-                    {
-                        Success = false,
-                        ValidationsErrors = new() { result.Error }
-                    };
-            }
-
-            if (request.PhoneNumber != null)
-            {
-                var result = user.Value.UpdatePhoneNumber(request.PhoneNumber);
-                if (!result.IsSuccess)
-                    return new UpdateUserCommandResponse()
-                    {
-                        Success = false,
-                        ValidationsErrors = new() { result.Error }
-                    };
-            }
-
-            if (request.Email != null)
-            {
-                var result = user.Value.UpdateEmail(request.Email);
-                if (!result.IsSuccess)
-                    return new UpdateUserCommandResponse()
-                    {
-                        Success = false,
-                        ValidationsErrors = new() { result.Error }
-                    };
-            }
-
-            if (request.Password != null)
-            {
-                var result = user.Value.UpdatePassword(request.Password);
-                if (!result.IsSuccess)
-                    return new UpdateUserCommandResponse()
-                    {
-                        Success = false,
-                        ValidationsErrors = new() { result.Error }
-                    };
-            }
-
             try
             {
                 await _repository.UpdateAsync(user.Value);
@@ -129,10 +85,8 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.UpdateU
                     Id = user.Value.Id,
                     FirstName = user.Value.FirstName,
                     LastName = user.Value.LastName,
-                    Email = user.Value.Email,
-                    PhoneNumber = user.Value.PhoneNumber,
-                    Username = user.Value.Username,
-                    DateOfBirth = user.Value.DateOfBirth
+                    DateOfBirth = user.Value.DateOfBirth,
+                    AuthDataId = user.Value.AuthDataId
                 }
             };
         }

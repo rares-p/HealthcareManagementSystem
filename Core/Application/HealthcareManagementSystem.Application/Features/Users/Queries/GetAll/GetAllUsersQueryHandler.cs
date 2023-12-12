@@ -22,12 +22,10 @@ namespace HealthcareManagementSystem.Application.Features.Users.Queries.GetAll
                 response.Users = result.Value.Select(user => new UserDto()
                 {
                     Id = user.Id,
-                    Username = user.Username,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Email = user.Email,
                     DateOfBirth = user.DateOfBirth,
-                    PhoneNumber = user.PhoneNumber
+                    AuthDataId = user.AuthDataId
                 }).ToList();
             }
 
