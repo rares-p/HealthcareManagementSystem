@@ -40,7 +40,8 @@ Welcome to your new app.
 
 	private async Task Logout()
 	{
-		@*await AuthenticationService.Logout();*@
+		await AuthenticationService.Logout();
 		NavigationManager.NavigateTo("/login");
+		NavigationManager.Refresh();
 	}
 }
