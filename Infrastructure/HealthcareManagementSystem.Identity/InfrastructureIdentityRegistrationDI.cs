@@ -21,7 +21,7 @@ namespace HealthcareManagementSystem.Identity
                options =>
                options.UseNpgsql(
                    configuration.GetConnectionString
-                   ("HealthcareManagementSystemDbConnectionIdentity"),
+                   ("HealthcareManagementSystemDbConnection"),
                    builder =>
                    builder.MigrationsAssembly(
                        typeof(ApplicationDbContext)
