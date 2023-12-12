@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using HealthcareManagementSystem.App.Contracts
 @using Microsoft.AspNetCore.Components.Authorization
+@using HealthcareManagementSystem.App.Auth
 
 <PageTitle>Home</PageTitle>
 
@@ -27,6 +28,8 @@ Welcome to your new app.
 	public NavigationManager NavigationManager { get; set; }
 	[Inject]
 	public IAuthenticationService AuthenticationService { get; set; }
+    [Inject]
+    public CustomStateProvider authStateProvider { get; set; }
 
 	private void NavigateToLogin()
 	{
@@ -41,7 +44,7 @@ Welcome to your new app.
 	private async Task Logout()
 	{
 		await AuthenticationService.Logout();
+	    await authStateProvider.Logout();
 		NavigationManager.NavigateTo("/login");
-		NavigationManager.Refresh();
 	}
 }
