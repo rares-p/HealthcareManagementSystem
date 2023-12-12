@@ -8,6 +8,5 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
         public string? FirstName { get; set; } = null; 
         public string? LastName { get; set; } = null;
         public string? Department{ get; set; } = null;
-        public string? Email { get; set; } = null;
     }
 }

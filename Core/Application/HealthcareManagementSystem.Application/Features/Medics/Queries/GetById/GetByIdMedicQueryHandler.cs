@@ -22,7 +22,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Queries.GetById
                     FirstName = Medic.Value.FirstName,
                     LastName = Medic.Value.LastName,
                     Department = Medic.Value.Department.ToString(),
-                    Email = Medic.Value.Email,
+                    AuthDataId = Medic.Value.AuthDataId,
                 };
             }
             return new MedicDto();

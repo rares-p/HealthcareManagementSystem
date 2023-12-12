@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using HealthcareManagementSystem.Application.Models.Identity.Registration;
 using HealthcareManagementSystem.Domain.Common;
 
 namespace HealthcareManagementSystem.Identity.Services
@@ -47,7 +48,7 @@ namespace HealthcareManagementSystem.Identity.Services
             if (!await roleManager.RoleExistsAsync(role))
                 await roleManager.CreateAsync(new IdentityRole(role));
 
-            if (await roleManager.RoleExistsAsync(UserRoles.User))
+            if (await roleManager.RoleExistsAsync(role))
                 await userManager.AddToRoleAsync(user, role);
 
             return AuthResult.Success(user.Id);

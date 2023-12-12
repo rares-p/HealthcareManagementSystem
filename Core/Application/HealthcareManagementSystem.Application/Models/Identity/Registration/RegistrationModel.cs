@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HealthcareManagementSystem.Application.Models.Identity
+namespace HealthcareManagementSystem.Application.Models.Identity.Registration
 {
     public class RegistrationModel
     {

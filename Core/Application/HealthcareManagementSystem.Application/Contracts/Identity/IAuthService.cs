@@ -1,4 +1,6 @@
-﻿using HealthcareManagementSystem.Application.Models.Identity;
+﻿using System.Security.Principal;
+using HealthcareManagementSystem.Application.Models.Identity;
+using HealthcareManagementSystem.Application.Models.Identity.Registration;
 using HealthcareManagementSystem.Domain.Common;
 
 namespace HealthcareManagementSystem.Application.Contracts.Identity

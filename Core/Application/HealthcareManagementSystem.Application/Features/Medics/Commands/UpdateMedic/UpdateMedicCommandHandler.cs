@@ -62,17 +62,6 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
                 medic.Value.UpdateDepartment(department);
             }
 
-            if (request.Email != null)
-            {
-                var result = medic.Value.UpdateEmail(request.Email);
-                if (!result.IsSuccess)
-                    return new UpdateMedicCommandResponse()
-                    {
-                        Success = false,
-                        ValidationsErrors = new() { result.Error }
-                    };
-            }
-
             try
             {
                 await _repository.UpdateAsync(medic.Value);
@@ -95,7 +84,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
                     FirstName = medic.Value.FirstName,
                     LastName = medic.Value.LastName,
                     Department = medic.Value.Department.ToString(),
-                    Email = medic.Value.Email
+                    AuthDataId = medic.Value.AuthDataId
                 }
             };
         }
