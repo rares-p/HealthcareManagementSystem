@@ -1,15 +1,17 @@
 ﻿using API.Models;
 using HealthcareManagementSystem.Application.Contracts.Identity;
 using HealthcareManagementSystem.Application.Contracts.Interfaces;
+using HealthcareManagementSystem.Application.Features.Users.Commands.CreateUser;
 using HealthcareManagementSystem.Application.Models.Identity;
+using HealthcareManagementSystem.Domain.Common;
 using HealthcareManagementSystem.Identity.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace API.Controllers
 {
-    [Route("api/v1/[controller]")]
-    [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : ApiControllerBase
     {
         private readonly IAuthService _authService;
         private readonly ILogger<AuthenticationController> _logger;
@@ -60,12 +62,23 @@ namespace API.Controllers
                     return BadRequest("Invalid payload");
                 }
 
-                var (status, message) = await _authService.Registration(model, UserRoles.User);
+                var authResult = await _authService.Registration(model, UserRoles.User);
 
-                if (status == 0)
+                if (!authResult.IsSuccess)
                 {
-                    return BadRequest(message);
+                    return BadRequest(authResult.Error);
                 }
+
+                var result = await Mediator.Send(new CreateUserCommand
+                {
+                    FirstName = model.Firstname,
+                    LastName = model.Lastname,
+                    DateOfBirth = model.DateOfBirth,
+                    AuthDataId = authResult.Id
+                });
+
+                if (!result.Success)
+                    return BadRequest(result);
 
                 return CreatedAtAction(nameof(Register), model);
             }

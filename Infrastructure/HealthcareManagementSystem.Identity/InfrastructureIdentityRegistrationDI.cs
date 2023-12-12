@@ -29,8 +29,8 @@ namespace HealthcareManagementSystem.Identity
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>()
-                            .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             // Adding Authentication  
             services.AddAuthentication(options =>
             {
