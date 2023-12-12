@@ -9,31 +9,36 @@
 
 	<DataAnnotationsValidator />
 	<ValidationSummary></ValidationSummary>
-
-	<div class="row mb-3 ms-2">
-		<label for="firstname" class="col-sm-3 form-label">Medic's first name:</label>
-		<div class="col-sm-5">
-			<InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
-			<ValidationMessage For="@(() => MedicViewModel.FirstName)" />
-		</div>
-	</div>
-
-	<button type="submit" class="btn btn-primary">Save medic (fist name)</button>
-	<button class="btn btn-primary" @onclick="Cancel">Cancel</button>
-</EditForm>
-
-<EditForm Model="@MedicViewModel" OnValidSubmit="@HandleValidSubmit">
-
-	<DataAnnotationsValidator />
-	<ValidationSummary></ValidationSummary>
-
-	<div class="row mb-3 ms-2">
-		<label for="firstname" class="col-sm-3 form-label">Medic's first name:</label>
-		<div class="col-sm-5">
-			<InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
-			<ValidationMessage For="@(() => MedicViewModel.FirstName)" />
-		</div>
-	</div>
+	
+	<form class="needs-validation" novalidate>
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationTooltip01">First name</label>
+	    <InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
+	    <ValidationMessage For="@(() => MedicViewModel.FirstName)" />
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationTooltip02">Last name</label>
+	    <InputText id="lastname" class="form-control" @bind-Value="@MedicViewModel.LastName" placeholder="Enter medic's last name"></InputText>
+	    <ValidationMessage For="@(() => MedicViewModel.LastName)" />
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+	  <div class="col-md-4 mb-3">
+		  <label for="validationTooltip04">E-Mail</label>
+		  <InputText id="email" class="form-control" @bind-Value="@MedicViewModel.Email" placeholder="Enter medic's e-mail"></InputText>
+		  <ValidationMessage For="@(() => MedicViewModel.Email)" />
+		  <div class="valid-tooltip">
+			  Looks good!
+		  </div>
+	  </div>
+  </div>
+  
+</form>
 
 	<button type="submit" class="btn btn-primary">Save medic (fist name)</button>
 	<button class="btn btn-primary" @onclick="Cancel">Cancel</button>
