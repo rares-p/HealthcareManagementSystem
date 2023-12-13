@@ -49,5 +49,12 @@ namespace HealthcareManagementSystem.App.Services
                 = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
             var result = await httpClient.DeleteAsync($"{RequestUri}/{id}");
         }
+
+        public async Task UpdateMedicationAsync(UpdateMedicationViewModel updateMedicationViewModel)
+        {
+            httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.PutAsJsonAsync(RequestUri, updateMedicationViewModel);
+        }
     }
 }

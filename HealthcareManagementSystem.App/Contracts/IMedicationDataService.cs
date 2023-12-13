@@ -8,5 +8,6 @@ namespace HealthcareManagementSystem.App.Contracts
         Task<List<MedicationViewModel>> GetMedicationsAsync();
         Task<ApiResponse<MedicationDto>> CreateMedicationAsync(MedicationViewModel medicationViewModel);
         Task DeleteMedicationAsync(Guid id);
+        Task UpdateMedicationAsync(UpdateMedicationViewModel updateMedicationViewModel);
     }
 }
