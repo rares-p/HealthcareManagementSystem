@@ -1,0 +1,62 @@
+﻿@page "/addmedication"
+@using HealthcareManagementSystem.App.ViewModels
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.Domain.Data
+
+<h3>New medic</h3>
+
+<EditForm Model="@MedicationViewModel" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="medicationName">Medication name</label>
+            <InputText id="medicationName" class="form-control" @bind-Value="@MedicationViewModel.Name" placeholder="Enter medication name"></InputText>
+            <ValidationMessage For="@(() => MedicationViewModel.Name)" />
+            <div class="valid-tooltip">
+                Looks good!
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add medication</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public IMedicationDataService MedicationDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public MedicationViewModel MedicationViewModel { get; set; } = new MedicationViewModel();
+
+    public string Message { get; set; }
+}
+
+@functions {
+    private async Task HandleValidSubmit()
+    {
+        var result = await MedicationDataService.CreateMedicationAsync(MedicationViewModel);
+        if (result.IsSuccess)
+        {
+            Message = "Medic created successfully";
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/medicoverview");
+    }
+}

@@ -1,0 +1,67 @@
+﻿@page "/medicationoverview"
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.App.ViewModels
+
+<h3>MedicOverview</h3>
+
+@if (Medications == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Medication Name</th>
+                <th scope="col">Delete Medication</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var medication in Medications)
+            {
+                <tr scope="row">
+                    <td class="event-name">@medication.Name</td>
+                    <td class="event-name">
+                        <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMedication(@medication.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public IMedicationDataService MedicationDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<MedicationViewModel> Medications { get; set; }
+}
+
+    @functions {
+    protected override async Task OnInitializedAsync()
+    {
+        Medications = (await MedicationDataService.GetMedicationsAsync()).ToList();
+    }
+
+    private void OnIncludeHistoryChanged(ChangeEventArgs e)
+    {
+        if ((bool)e.Value)
+        {
+            NavigationManager.NavigateTo("/medicoverview?includeHistory=true");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/medicoverview");
+        }
+    }
+
+    private async void DeleteMedication(Guid Id)
+    {
+        await MedicationDataService.DeleteMedicationAsync(Id);
+    }
+}
