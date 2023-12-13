@@ -1,46 +1,46 @@
-﻿using HealthcareManagementSystem.App.Contracts;
-using HealthcareManagementSystem.App.Services.Responses;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using HealthcareManagementSystem.App.Contracts;
+using HealthcareManagementSystem.App.Services.Responses;
 using HealthcareManagementSystem.App.ViewModels;
 
 namespace HealthcareManagementSystem.App.Services
 {
-	public class MedicDataService : IMedicDataService
+	public class UserDataService : IUserDataService
 	{
-		private const string RequestUri = "api/v1/medics";
+		private const string RequestUri = "api/v1/users";
 		private readonly HttpClient httpClient;
 		private readonly ITokenService tokenService;
 
-		public MedicDataService(HttpClient httpClient, ITokenService tokenService)
+		public UserDataService(HttpClient httpClient, ITokenService tokenService)
 		{
 			this.httpClient = httpClient;
 			this.tokenService = tokenService;
 		}
 
-		public async Task<ApiResponse<MedicDto>> CreateMedicAsync(MedicViewModel medicViewModel)
+		public async Task<ApiResponse<UserDto>> CreateUserAsync(UserViewModel userViewModel)
 		{
 			httpClient.DefaultRequestHeaders.Authorization
 				= new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
-			var result = await httpClient.PostAsJsonAsync(RequestUri, medicViewModel);
+			var result = await httpClient.PostAsJsonAsync(RequestUri, userViewModel);
 			result.EnsureSuccessStatusCode();
-			var response = await result.Content.ReadFromJsonAsync<ApiResponse<MedicDto>>();
+			var response = await result.Content.ReadFromJsonAsync<ApiResponse<UserDto>>();
 			response!.IsSuccess = result.IsSuccessStatusCode;
 			return response!;
 		}
 
-		public Task<ApiResponse<MedicDto>> DeleteMedicAsync(Guid id)
+		public Task<ApiResponse<UserDto>> DeleteUserAsync(Guid id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<MedicViewModel> GetMedicByIdAsync(Guid id)
+		public Task<UserViewModel> GetUserByIdAsync(Guid id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public async Task<List<MedicViewModel>> GetMedicsAsync()
+		public async Task<List<UserViewModel>> GetUsersAsync()
 		{
 			var result = await httpClient.GetAsync(RequestUri, HttpCompletionOption.ResponseHeadersRead);
 			result.EnsureSuccessStatusCode();
@@ -49,11 +49,11 @@ namespace HealthcareManagementSystem.App.Services
 			{
 				throw new ApplicationException(content);
 			}
-			var medics = JsonSerializer.Deserialize<List<MedicViewModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-			return medics!;
+			var users = JsonSerializer.Deserialize<List<UserViewModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+			return users!;
 		}
 
-		public Task<ApiResponse<MedicDto>> UpdateMedicAsync(MedicViewModel medicViewModel)
+		public Task<ApiResponse<UserDto>> UpdateUserAsync(UserViewModel userViewModel)
 		{
 			throw new NotImplementedException();
 		}

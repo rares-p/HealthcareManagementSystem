@@ -1,0 +1,63 @@
+﻿@page "/useroverview"
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.App.ViewModels
+@using HealthcareManagementSystem.Domain.Entities
+
+<h3>UserOverview</h3>
+
+@if (Users == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<table>
+		<thead>
+			<tr>
+				<th>User list</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var usr in Users)
+			{
+				<tr>
+					<td>@usr.FirstName </td>
+
+				</tr>
+				<tr>
+					<td>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+   [Inject]
+   public IUserDataService UserDataService { get; set; }
+   
+   [Inject]
+   public NavigationManager NavigationManager { get; set; }
+   
+   public List<UserViewModel> Users { get; set; }
+}
+
+@functions {
+	protected override async Task OnInitializedAsync()
+	{
+		Users = (await UserDataService.GetUsersAsync()).ToList();
+	}
+
+	private void OnIncludeHistoryChanged(ChangeEventArgs e)
+	{
+		if ((bool)e.Value)
+		{
+			NavigationManager.NavigateTo("/medicoverview?includeHistory=true");
+		}
+		else
+		{
+			NavigationManager.NavigateTo("/medicoverview");
+		}
+	}
+}

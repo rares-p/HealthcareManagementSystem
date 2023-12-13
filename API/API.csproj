@@ -18,4 +18,7 @@
     <ProjectReference Include="..\Infrastructure\HealthcareManagementSystem.Identity\HealthcareManagementSystem.Identity.csproj" />
     <ProjectReference Include="..\Infrastructure\HealthcareManagementSystem.Infrastructure\HealthcareManagementSystem.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>
