@@ -15,16 +15,34 @@ else
             <tr>
                 <th scope="col">Medication Name</th>
                 <th scope="col">Delete Medication</th>
+                <th scope="col">Update Medication</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach (var medication in Medications)
+            @for (var i = 0; i < Medications.Count; i++)
             {
                 <tr scope="row">
-                    <td class="event-name">@medication.Name</td>
+                    <td class="event-name">@Medications[i].Name</td>
                     <td class="event-name">
-                        <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMedication(@medication.Id))">Delete</button>
+
+                        @{
+                            var i2 = i;
+                        }
+                        <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMedication(@Medications[i2].Id))">Delete</button>
+                    </td>
+                    <td>
+                        <label for="@Medications[i].Id">First name</label>
+
+                        @{
+                            var i1 = i;
+                        }
+                        <InputText id="@Medications[i].Id" class="form-control" @bind-Value="@UpdateMedications[i1].Name" placeholder="Enter medication name"></InputText>
+
+                        @{
+                            var i3 = i;
+                        }
+                        <button @onclick="@(() => UpdateMedication(i3))" class="btn btn-success">UPDATE</button>
                     </td>
                 </tr>
             }
@@ -40,12 +58,20 @@ else
     public NavigationManager NavigationManager { get; set; }
 
     public List<MedicationViewModel> Medications { get; set; }
+    public List<UpdateMedicationViewModel> UpdateMedications { get; set; }
 }
 
     @functions {
     protected override async Task OnInitializedAsync()
     {
         Medications = (await MedicationDataService.GetMedicationsAsync()).ToList();
+        UpdateMedications = new List<UpdateMedicationViewModel>();
+        foreach (var medication in Medications)
+            UpdateMedications.Add(new UpdateMedicationViewModel()
+                {
+                    Id = medication.Id,
+                    Name = medication.Name
+                });
     }
 
     private void OnIncludeHistoryChanged(ChangeEventArgs e)
@@ -63,5 +89,10 @@ else
     private async void DeleteMedication(Guid Id)
     {
         await MedicationDataService.DeleteMedicationAsync(Id);
+    }
+
+    private async void UpdateMedication(int index)
+    {
+        await MedicationDataService.UpdateMedicationAsync(UpdateMedications[index]);
     }
 }
