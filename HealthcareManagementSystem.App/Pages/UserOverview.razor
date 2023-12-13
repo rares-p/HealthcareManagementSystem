@@ -1,10 +1,10 @@
-﻿@page "/medicoverview"
+﻿@page "/useroverview"
 @using HealthcareManagementSystem.App.Contracts
 @using HealthcareManagementSystem.App.ViewModels
 
-<h3>MedicOverview</h3>
+<h3>All Users</h3>
 
-@if (Medics == null)
+@if (Users == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -20,12 +20,12 @@ else
         </thead>
         <tbody>
 
-            @foreach (var medic in Medics)
+            @foreach (var user in Users)
             {
                 <tr scope="row">
-                    <td class="event-name">@medic.FirstName</td>
-                    <td class="event-date">@medic.LastName</td>
-                    <td class="event-price">@medic.Department.ToString()</td>
+                    <td class="event-name">@user.FirstName</td>
+                    <td class="event-date">@user.LastName</td>
+                    <td class="event-price">@user.DateOfBirth.ToString("d")</td>
                 </tr>
             }
         </tbody>
@@ -54,29 +54,17 @@ else
 
 @code {
     [Inject]
-    public IMedicDataService MedicDataService { get; set; }
+    public IUserDataService UserDataService { get; set; }
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
-    public List<GetMedic> Medics { get; set; }
+    public List<UserViewModel> Users { get; set; }
 }
 
     @functions {
     protected override async Task OnInitializedAsync()
     {
-        Medics = (await MedicDataService.GetMedicsAsync()).ToList();
-    }
-
-    private void OnIncludeHistoryChanged(ChangeEventArgs e)
-    {
-        if ((bool)e.Value)
-        {
-            NavigationManager.NavigateTo("/medicoverview?includeHistory=true");
-        }
-        else
-        {
-            NavigationManager.NavigateTo("/medicoverview");
-        }
+        Users = (await UserDataService.GetUsersAsync()).ToList();
     }
 }

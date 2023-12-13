@@ -5,7 +5,7 @@ namespace HealthcareManagementSystem.App.Contracts
 {
     public interface IMedicDataService
     {
-        Task<List<MedicViewModel>> GetMedicsAsync();
+        Task<List<GetMedic>> GetMedicsAsync();
         Task<MedicViewModel> GetMedicByIdAsync(Guid id);
         Task<ApiResponse<MedicDto>> CreateMedicAsync(MedicViewModel medicViewModel);
         Task<ApiResponse<MedicDto>> UpdateMedicAsync(UpdateMedicViewModel medicViewModel);

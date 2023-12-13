@@ -23,7 +23,7 @@ namespace HealthcareManagementSystem.App.Services
 		{
 			httpClient.DefaultRequestHeaders.Authorization
 				= new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
-			var result = await httpClient.PostAsJsonAsync(RequestUri, medicViewModel);
+			var result = await httpClient.PostAsJsonAsync("api/v1/Authentication/register_medic", medicViewModel);
 			result.EnsureSuccessStatusCode();
 			var response = await result.Content.ReadFromJsonAsync<ApiResponse<MedicDto>>();
 			response!.IsSuccess = result.IsSuccessStatusCode;
@@ -40,17 +40,18 @@ namespace HealthcareManagementSystem.App.Services
 			throw new NotImplementedException();
 		}
 
-		public async Task<List<MedicViewModel>> GetMedicsAsync()
+		public async Task<List<GetMedic>> GetMedicsAsync()
 		{
-			var result = await httpClient.GetAsync(RequestUri, HttpCompletionOption.ResponseHeadersRead);
-			result.EnsureSuccessStatusCode();
+			//var result = await httpClient.GetAsync(RequestUri, HttpCompletionOption.ResponseHeadersRead);
+            var result = await httpClient.GetAsync(RequestUri);
+            result.EnsureSuccessStatusCode();
 			var content = await result.Content.ReadAsStringAsync();
 			if (!result.IsSuccessStatusCode)
 			{
 				throw new ApplicationException(content);
 			}
-			var medics = JsonSerializer.Deserialize<List<MedicViewModel>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-			return medics!;
+			var medics = JsonSerializer.Deserialize<GetMedicArray>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+			return medics!.Medics;
 		}
 
 		public Task<ApiResponse<MedicDto>> UpdateMedicAsync(UpdateMedicViewModel medicViewModel)
@@ -58,4 +59,9 @@ namespace HealthcareManagementSystem.App.Services
 			throw new NotImplementedException();
 		}
 	}
+}
+
+public class GetMedicArray
+{
+	public List<GetMedic> Medics { get; set; }
 }

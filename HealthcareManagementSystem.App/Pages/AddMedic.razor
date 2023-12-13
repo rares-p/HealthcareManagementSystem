@@ -1,82 +1,88 @@
 ﻿@page "/addmedic"
 @using HealthcareManagementSystem.App.ViewModels
 @using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.Domain.Data
 @using HealthcareManagementSystem.Domain.Entities
 
 <h3>New medic</h3>
 
 <EditForm Model="@MedicViewModel" OnValidSubmit="@HandleValidSubmit">
 
-	<DataAnnotationsValidator />
-	<ValidationSummary></ValidationSummary>
-	
-	<form class="needs-validation" novalidate>
-  <div class="form-row">
-    <div class="col-md-4 mb-3">
-      <label for="validationTooltip01">First name</label>
-	    <InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
-	    <ValidationMessage For="@(() => MedicViewModel.FirstName)" />
-      <div class="valid-tooltip">
-        Looks good!
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationTooltip02">Last name</label>
-	    <InputText id="lastname" class="form-control" @bind-Value="@MedicViewModel.LastName" placeholder="Enter medic's last name"></InputText>
-	    <ValidationMessage For="@(() => MedicViewModel.LastName)" />
-      <div class="valid-tooltip">
-        Looks good!
-      </div>
-    </div>
-	  <div class="col-md-4 mb-3">
-		  <label for="validationTooltip04">E-Mail</label>
-		  <InputText id="email" class="form-control" @bind-Value="@MedicViewModel.Email" placeholder="Enter medic's e-mail"></InputText>
-		  <ValidationMessage For="@(() => MedicViewModel.Email)" />
-		  <div class="valid-tooltip">
-			  Looks good!
-		  </div>
-	  </div>
-  </div>
-  
-</form>
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
 
-	<button type="submit" class="btn btn-primary">Save medic (fist name)</button>
-	<button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="firstname">First name</label>
+            <InputText id="firstname" class="form-control" @bind-Value="@MedicViewModel.FirstName" placeholder="Enter medic's first name"></InputText>
+            <ValidationMessage For="@(() => MedicViewModel.FirstName)" />
+            <div class="valid-tooltip">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="lastname">Last name</label>
+            <InputText id="lastname" class="form-control" @bind-Value="@MedicViewModel.LastName" placeholder="Enter medic's last name"></InputText>
+            <ValidationMessage For="@(() => MedicViewModel.LastName)" />
+            <div class="valid-tooltip">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="email">E-Mail</label>
+            <InputText id="email" class="form-control" @bind-Value="@MedicViewModel.Email" placeholder="Enter medic's e-mail"></InputText>
+            <ValidationMessage For="@(() => MedicViewModel.Email)" />
+            <div class="valid-tooltip">
+                Looks good!
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <InputSelect @bind-Value="@MedicViewModel.Department">
+                @foreach (var gender in Enum.GetValues(typeof(Department)))
+                {
+                    <option value="@gender">@gender</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save medic</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
 </EditForm>
 
 @code {
-	[Inject]
-	public IMedicDataService MedicDataService { get; set; }
+    [Inject]
+    public IMedicDataService MedicDataService { get; set; }
 
-	[Inject]
-	public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
 
-	public MedicViewModel MedicViewModel { get; set; } = new MedicViewModel();
+    public MedicViewModel MedicViewModel { get; set; } = new MedicViewModel();
 
-	public string Message { get; set; }
+    public string Message { get; set; }
 }
 
-@functions{
-	private async Task HandleValidSubmit()
-	{
-		var result = await MedicDataService.CreateMedicAsync(MedicViewModel);
-		if (result.IsSuccess)
-		{
-			Message = "Medic created successfully";
-			NavigationManager.NavigateTo("/medicoverview");
-		}
-		else
-		{
-			Message = result.Message;
-			if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
-			{
-				Message += result.ValidationErrors;
-			}
-		}
-	}
+@functions {
+    private async Task HandleValidSubmit()
+    {
+        var result = await MedicDataService.CreateMedicAsync(MedicViewModel);
+        if (result.IsSuccess)
+        {
+            Message = "Medic created successfully";
+            NavigationManager.NavigateTo("/medicoverview");
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
 
-	private void Cancel()
-	{
-		NavigationManager.NavigateTo("/medicoverview");
-	}
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/medicoverview");
+    }
 }

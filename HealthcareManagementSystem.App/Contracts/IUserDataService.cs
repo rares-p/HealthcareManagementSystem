@@ -1,6 +1,9 @@
-﻿namespace HealthcareManagementSystem.App.Contracts
+﻿using HealthcareManagementSystem.App.ViewModels;
+
+namespace HealthcareManagementSystem.App.Contracts
 {
     public interface IUserDataService
     {
+        Task<List<UserViewModel>> GetUsersAsync();
     }
 }
