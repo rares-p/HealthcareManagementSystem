@@ -1,12 +1,55 @@
 ﻿@page "/login"
+@layout EmptyLayout
 @using HealthcareManagementSystem.App.Auth
 @using HealthcareManagementSystem.App.ViewModels
 @inject NavigationManager navigationManager
 @inject CustomStateProvider authStateProvider
 
-<h3>Login</h3>
 
-<EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginRequest">
+<link rel="stylesheet" href="css/bootstrap/login-bootstrap.min.css">
+<link rel="stylesheet" href="css/login.css">
+
+
+<div class="d-lg-flex half">
+	<div class="bg order-1 order-md-2" style="background-image: url('images/login_bg_square.jpg');"></div>
+	<div class="contents order-2 order-md-1">
+
+		<div class="container">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-md-7">
+					<h3>Login to <strong>Colorlib</strong></h3>
+					<p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+					<form action="#" method="post">
+						<div class="form-group first">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
+						</div>
+						<div class="form-group last mb-3">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" placeholder="Your Password" id="password">
+						</div>
+
+						<div class="d-flex mb-5 align-items-center">
+							<label class="control control--checkbox mb-0">
+								<span class="caption">Remember me</span>
+								<input type="checkbox" checked="checked" />
+								<div class="control__indicator"></div>
+							</label>
+							<span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
+						</div>
+
+						<input type="submit" value="Log In" class="btn btn-block btn-primary">
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+@* <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginRequest">
 	<DataAnnotationsValidator />
 
 	<label for="inputUsername" class="sr-only">Username</label>
@@ -27,7 +70,7 @@
 		<h6 class="font-weight-normal text-center">Create account</h6>
 	</NavLink>
 </EditForm>
-
+ *@
 @code {
 	LoginViewModel loginRequest { get; set; } = new LoginViewModel();
 	string error { get; set; }

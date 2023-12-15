@@ -1,0 +1,21 @@
+﻿@using HealthcareManagementSystem.App.Services
+@using HealthcareManagementSystem.App.Auth
+@using HealthcareManagementSystem.App.Contracts
+@inject NavigationManager navigationManager
+@inject CustomStateProvider authStateProvider
+@inject ITokenService TokenService
+@inherits LayoutComponentBase
+
+
+
+@functions {
+	protected override async Task OnInitializedAsync()
+	{
+		var token = await TokenService.GetTokenAsync();
+		if (token == null)
+		{
+			navigationManager.NavigateTo("/login");
+		}
+	}
+}
+
