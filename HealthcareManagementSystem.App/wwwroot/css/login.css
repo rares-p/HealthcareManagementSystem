@@ -114,11 +114,11 @@ h2 {
   background: #ccc; }
 
 .control input:checked ~ .control__indicator {
-  background: #007bff; }
+  background: #b51d1d; }
 
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-  background: #1a88ff; }
+  background: #de2828; }
 
 .control input:disabled ~ .control__indicator {
   background: #e6e6e6;
@@ -153,3 +153,4 @@ h2 {
 .control--checkbox input:disabled:checked ~ .control__indicator {
   background-color: #7e0cf5;
   opacity: .2; }
+

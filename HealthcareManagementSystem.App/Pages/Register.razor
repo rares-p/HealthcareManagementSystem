@@ -1,10 +1,81 @@
 ﻿@page "/register"
+@layout LoginLayout
 @using HealthcareManagementSystem.App.ViewModels
 @using HealthcareManagementSystem.App.Auth
 @inject NavigationManager navigationManager
 @inject CustomStateProvider authStateProvider
 @inject IJSRuntime JsRuntime
 
+
+<h3>Create a new account</h3>
+<br />
+<EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="RegisterRequest">
+    <DataAnnotationsValidator />
+    <div class="form-group first">
+	    <label for="inputFirstName">First Name</label>
+	    <InputText id="inputFirstName" class="form-control" @bind-Value="RegisterRequest.FirstName" autofocus placeholder="Your First Name" />
+	    <ValidationMessage For="@(() => RegisterRequest.FirstName)" />
+	    <div class="valid-tooltip">
+		    Looks good!
+	    </div>
+    </div>
+    <div class="form-group">
+	    <label for="inputLastName">Last Name</label>
+	    <InputText id="inputLastName" class="form-control" @bind-Value="RegisterRequest.LastName" autofocus placeholder="Your Last Name" />
+	    <ValidationMessage For="@(() => RegisterRequest.LastName)" />
+	    <div class="valid-tooltip">
+		    Looks good!
+	    </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <InputText id="inputEmail" class="form-control" @bind-Value="RegisterRequest.Email" autofocus placeholder="your-email@gmail.com" />
+        <ValidationMessage For="@(() => RegisterRequest.Email)" />
+        <div class="valid-tooltip">
+	        Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+	    <label for="inputUsername">Username</label>
+	    <InputText id="inputUsername" class="form-control" @bind-Value="RegisterRequest.Username" autofocus placeholder="Your Username" />
+	    <ValidationMessage For="@(() => RegisterRequest.Username)" />
+	    <div class="valid-tooltip">
+		    Looks good!
+	    </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword"> Password</label>
+        <InputText type="password" id="inputPassword" class="form-control" @bind-Value="RegisterRequest.Password" autofocus placeholder="Your Password" />
+        <ValidationMessage For="@(() => RegisterRequest.Password)" />
+        <div class="valid-tooltip">
+	        Looks good!
+        </div>
+    </div>
+    <div class="form-group">
+	    <label for="inputPhoneNumber"> PhoneNumber</label>
+	    <InputText id="inputPhoneNumber" class="form-control" @bind-Value="RegisterRequest.PhoneNumber" autofocus placeholder="0123456789" />
+	    <ValidationMessage For="@(() => RegisterRequest.PhoneNumber)" />
+	    <div class="valid-tooltip">
+		    Looks good!
+	    </div>
+    </div>
+    <div class="form-group last mb-3">
+	    <label for="inputDateOfBirth">Date Of Birth</label>
+	    <InputDate TValue="DateOnly" id="inputDateOfBirth" class="form-control" @bind-Value="RegisterDate"/>
+	    <ValidationMessage For="@(() => RegisterRequest.DateOfBirth)" />
+	    <div class="valid-tooltip">
+		    Looks good!
+	    </div>
+    </div>
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+    <label class="text-danger">@Error</label>
+
+</EditForm>
+
+
+@*
 <h3>Register</h3>
 
 
@@ -74,11 +145,11 @@
 
     <label class="text-danger">@Error</label>
 </EditForm>
-
+ *@
 @code {
     RegisterViewModel RegisterRequest { get; set; } = new RegisterViewModel();
     string? Error { get; set; }
-    DateOnly RegisterDate { get; set; }
+    DateOnly RegisterDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
 
     async Task OnSubmit()
     {

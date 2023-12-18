@@ -1,14 +1,30 @@
-﻿@using HealthcareManagementSystem.App.Services
-@using HealthcareManagementSystem.App.Auth
+﻿@using HealthcareManagementSystem.App.Auth
 @using HealthcareManagementSystem.App.Contracts
 @inject NavigationManager navigationManager
 @inject CustomStateProvider authStateProvider
 @inject ITokenService TokenService
 @inherits LayoutComponentBase
 
+<link rel="stylesheet" href="css/bootstrap/login-bootstrap.min.css">
+<link rel="stylesheet" href="css/login.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/icomoon/styles.css">
 
 
-@functions {
+<div class="d-lg-flex half">
+	<div class="bg order-1 order-md-2" style="background-image: url('images/login_bg_square.jpg');"></div>
+	<div class="contents order-2 order-md-1">
+		<div class="container">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-md-7">
+					@Body
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* @functions {
 	protected override async Task OnInitializedAsync()
 	{
 		var token = await TokenService.GetTokenAsync();
@@ -17,5 +33,5 @@
 			navigationManager.NavigateTo("/login");
 		}
 	}
-}
+} *@
 
