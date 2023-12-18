@@ -1,31 +1,40 @@
 ﻿@page "/login"
+@layout LoginLayout
 @using HealthcareManagementSystem.App.Auth
 @using HealthcareManagementSystem.App.ViewModels
 @inject NavigationManager navigationManager
 @inject CustomStateProvider authStateProvider
 
-<h3>Login</h3>
 
+<h3>Log into your account</h3>
+<br/>
 <EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="loginRequest">
 	<DataAnnotationsValidator />
+	<div class="form-group first">
+		<label for="inputUsername">Username</label>
+		<InputText id="inputUsername" class="form-control" @bind-Value="loginRequest.Username" autofocus placeholder="Your Username"/>
+		<ValidationMessage For="@(() => loginRequest.Username)" />
+	</div>
+	<div class="form-group last mb-3">
+		<label for="inputPassword"> Password</label>
+		<InputText type="password" id="inputPassword" class="form-control" @bind-Value="loginRequest.Password" autofocus placeholder="Your Password" />
+		<ValidationMessage For="@(() => loginRequest.Password)" />
+	</div>
 
-	<label for="inputUsername" class="sr-only">Username</label>
-	<InputText id="inputUsername" class="form-control" @bind-Value="loginRequest.Username" autofocus placeholder="Username" />
-	<ValidationMessage For="@(() => loginRequest.Username)" />
-
-	<label for="inputPassword" class="sr-only">Password</label>
-	<InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="loginRequest.Password" />
-	<ValidationMessage For="@(() => loginRequest.Password)" />
-
-	<br />
-
+	<div class="d-flex mb-3 align-items-center">
+		<label class="control control--checkbox mb-0">
+			<span class="caption">Remember me</span>
+			<input type="checkbox" checked="checked"/>
+			<div class="control__indicator"></div>
+		</label>
+		<span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
+	</div>
+	<NavLink href="register">
+		<h6 class="font-weight-normal mb-">Create account</h6>
+	</NavLink>
 	<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="OnClickHandler">Sign in</button>
-
 	<label class="text-danger">@error</label>
 
-	<NavLink href="register">
-		<h6 class="font-weight-normal text-center">Create account</h6>
-	</NavLink>
 </EditForm>
 
 @code {
