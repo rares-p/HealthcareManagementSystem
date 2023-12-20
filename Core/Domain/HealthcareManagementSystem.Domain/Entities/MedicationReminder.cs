@@ -26,7 +26,10 @@ namespace HealthcareManagementSystem.Domain.Entities
 
         public static Result<MedicationReminder> Create(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
-            if(dosage is < 1 or > 10)
+            if (hourList == null)
+                return Result<MedicationReminder>.Failure("Hour List is empty!");
+
+            if (dosage is < 1 or > 10)
                 return Result<MedicationReminder>.Failure("Medication dosage is not valid!");
 
             if(DateTime.Compare(startDate, endDate) >= 0)
@@ -43,8 +46,8 @@ namespace HealthcareManagementSystem.Domain.Entities
                 if(hour < 0 || hour > 23.59)
                     return Result<MedicationReminder>.Failure("All hours must be between 0:00 and 23:59!");
 
-                if(hour - Math.Truncate(hour) > 0.59)
-                    return Result<MedicationReminder>.Failure("Minutes is an hour must be between 0 and 59!");
+                if(hour - Math.Truncate(hour) >= 0.6)
+                    return Result<MedicationReminder>.Failure("Minutes in an hour must be between 0 and 59!");
             }
 
             return Result<MedicationReminder>.Success(new MedicationReminder(dosage, startDate, endDate, dayInterval, hourList));
