@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A24EC682-C455-477A-8C78-633E459A0E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareManagementSystem.Domain.Tests", "Tests\HealthcareManagementSystem.Domain.Tests\HealthcareManagementSystem.Domain.Tests.csproj", "{3D08E0DA-647F-445E-ADE1-9B9D43A8DAA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.Domain.Tests", "Tests\HealthcareManagementSystem.Domain.Tests\HealthcareManagementSystem.Domain.Tests.csproj", "{3D08E0DA-647F-445E-ADE1-9B9D43A8DAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareManagementSystem.Application.Tests", "Tests\HealthcareManagementSystem.Application.Tests\HealthcareManagementSystem.Application.Tests.csproj", "{A102C77A-E436-4E76-96C1-75DF8213C52B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.Application.Tests", "Tests\HealthcareManagementSystem.Application.Tests\HealthcareManagementSystem.Application.Tests.csproj", "{A102C77A-E436-4E76-96C1-75DF8213C52B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,90 @@
+﻿@page "/editmedicationreminder/{Id:Guid}"
+@using HealthcareManagementSystem.App.ViewModels
+@using HealthcareManagementSystem.App.Services
+@using HealthcareManagementSystem.App.Contracts
+
+<h3>EditMedicationReminder</h3>
+
+@if (MedicationReminder == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">
+            DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                                                                       href="https://datatables.net">official DataTables documentation</a>.
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th scope="col">Medication Reminder</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr scope="row">
+                            <td class="event-name">@MedicationReminder.UserId</td>
+                        </tr>
+
+                        <tr scope="row">
+                            <td class="event-name">@MedicationReminder.MedicationId</td>
+                        </tr>
+                        <tr scope="row">
+                            <td class="event-name">
+                                <InputNumber id="medicationDosage" class="form-control" @bind-Value="@MedicationReminder.Dosage" placeholder="Enter medication Dosage"></InputNumber>
+                            </td>
+                        </tr>
+                        <tr scope="row">
+                            <td class="event-name">
+                                <InputNumber id="medicationDosage" class="form-control" @bind-Value="@MedicationReminder.DayInterval" placeholder="Enter medication day interval"></InputNumber>
+                            </td>
+                        </tr>
+                        <tr scope="row">
+                            <td class="event-name">@MedicationReminder.HourList</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button @onclick="@(UpdateMedication)" class="btn btn-success">Update</button>
+    </div>
+}
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    [Inject]
+    public IMedicationReminderDataService MedicationReminderDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public MedicationReminderDto MedicationReminder { get; set; }
+}
+
+@functions {
+    protected override async Task OnInitializedAsync()
+    {
+        MedicationReminder = await MedicationReminderDataService.GetMedicationReminderByIdAsync(Id);
+    }
+
+
+    private async void UpdateMedication()
+    {
+        MedicationReminder.Id = Id;
+        await MedicationReminderDataService.UpdateMedicationReminderAsync(MedicationReminder);
+    }
+}
