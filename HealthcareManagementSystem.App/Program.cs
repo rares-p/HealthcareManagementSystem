@@ -38,6 +38,10 @@ builder.Services.AddHttpClient<IMedicationDataService, MedicationDataService>(cl
 {
     client.BaseAddress = new Uri("https://localhost:7041/");
 });
+builder.Services.AddHttpClient<IMedicationReminderDataService, MedicationReminderDataService>(client =>
+{
+	client.BaseAddress = new Uri("https://localhost:7041/");
+});
 builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomStateProvider>());
 
 builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>(client =>
