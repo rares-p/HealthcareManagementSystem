@@ -46,7 +46,7 @@ namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Co
                     }
                 };
 
-            var medicationReminder = MedicationReminder.Create(request.Dosage, request.StartDate, request.EndDate, request.DayInterval, request.HourList);
+            var medicationReminder = MedicationReminder.Create(request.UserId, request.MedicationId, request.Dosage, request.StartDate, request.EndDate, request.DayInterval, request.HourList);
             if (!medicationReminder.IsSuccess)
                 return new CreateMedicationReminderCommandResponse
                 {
@@ -64,7 +64,9 @@ namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Co
                 MedicationReminder = new CreateMedicationReminderDto()
                 {
                     Id = medicationReminder.Value.Id,
-                    Dosage = medicationReminder.Value.Dosage,
+                    UserId = medicationReminder.Value.UserId,
+                    MedicationId = medicationReminder.Value.MedicationId,
+					Dosage = medicationReminder.Value.Dosage,
                     StartDate = medicationReminder.Value.StartDate,
                     EndDate = medicationReminder.Value.EndDate,
                     DayInterval = medicationReminder.Value.DayInterval,

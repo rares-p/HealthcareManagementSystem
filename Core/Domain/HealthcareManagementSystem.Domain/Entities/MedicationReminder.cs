@@ -4,9 +4,11 @@ namespace HealthcareManagementSystem.Domain.Entities
 {
     public class MedicationReminder : AuditableEntity
     {
-        private MedicationReminder(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
+        private MedicationReminder(Guid userId, Guid medicationId, uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
             Id = Guid.NewGuid();
+            UserId = userId;
+            MedicationId = medicationId;
             HourList = hourList;
             Dosage = dosage;
             StartDate = startDate;
@@ -16,20 +18,26 @@ namespace HealthcareManagementSystem.Domain.Entities
         }
 
         public Guid Id { get; private set; }
-        public User User { get; private set; }
-        public Medication Medication { get; private set; }
+        public Guid UserId { get; private set; }
+        public Guid MedicationId { get; private set; }
         public uint Dosage { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public uint DayInterval { get; private set; }
         public List<float> HourList { get; private set; }
 
-        public static Result<MedicationReminder> Create(uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
+        public static Result<MedicationReminder> Create(Guid userId, Guid medicationId, uint dosage, DateTime startDate, DateTime endDate, uint dayInterval, List<float> hourList)
         {
             if (hourList == null)
                 return Result<MedicationReminder>.Failure("Hour List is empty!");
+                
+            if (userId == Guid.Empty)
+                return Result<MedicationReminder>.Failure("User id is not valid");
 
-            if (dosage is < 1 or > 10)
+            if (medicationId == Guid.Empty)
+	            return Result<MedicationReminder>.Failure("Medication id is not valid");
+
+			      if (dosage is < 1 or > 10)
                 return Result<MedicationReminder>.Failure("Medication dosage is not valid!");
 
             if(DateTime.Compare(startDate, endDate) >= 0)
@@ -50,7 +58,7 @@ namespace HealthcareManagementSystem.Domain.Entities
                     return Result<MedicationReminder>.Failure("Minutes in an hour must be between 0 and 59!");
             }
 
-            return Result<MedicationReminder>.Success(new MedicationReminder(dosage, startDate, endDate, dayInterval, hourList));
+            return Result<MedicationReminder>.Success(new MedicationReminder(userId, medicationId, dosage, startDate, endDate, dayInterval, hourList));
         }
     }
 }

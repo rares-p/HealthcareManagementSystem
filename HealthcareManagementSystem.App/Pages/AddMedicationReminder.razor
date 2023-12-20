@@ -1,0 +1,112 @@
+﻿@page "/addmedicationreminder"
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.App.ViewModels
+<h3>CreateMedicationReminder</h3>
+
+<EditForm Model="@MedicationReminderViewModel" OnValidSubmit="@HandleValidSubmit">
+
+	<DataAnnotationsValidator />
+	<ValidationSummary></ValidationSummary>
+
+	<div>
+		<div class="col-md-4 mb-3">
+			<label for="userId">User ID</label>
+			<InputText id="userId" class="form-control" @bind-Value="@UserId" placeholder="Enter user id"></InputText>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.UserId)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
+		</div>
+		
+		<div class="col-md-4 mb-3">
+			<label for="medicationId">Medication ID</label>
+			<InputText id="medicationId" class="form-control" @bind-Value="@MedicationId" placeholder="Enter medication id"></InputText>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.MedicationId)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
+		</div>
+		
+		<div class="col-md-4 mb-3">
+			<label for="dosage">Dosage</label>
+			<InputNumber id="dosage" class="form-control" @bind-Value="@Dosage" placeholder="Enter dosage"></InputNumber>
+		</div>
+		
+		<div class="col-md-4 mb-3">
+			<label for="startDate">Start Date</label>
+			<InputDate TValue="DateOnly" id="startDate" class="form-control" @bind-Value="StartDate"/>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.StartDate)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
+		</div>
+		<div class="col-md-4 mb-3">
+			<label for="endDate">End Date</label>
+			<InputDate TValue="DateOnly" id="endDate" class="form-control" @bind-Value="EndDate"/>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.EndDate)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
+		</div>
+		<div class="col-md-4 mb-3">
+			<label for="hour">Hour</label>
+			<InputNumber id="hour" class="form-control" @bind-Value="@Hour" step="0.5" min="0" max="24"> </InputNumber>
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Add medication reminder</button>
+	<button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+	[Inject]
+	public IMedicationReminderDataService MedicationReminderDataService { get; set; }
+
+	[Inject]
+	public NavigationManager NavigationManager { get; set; }
+
+	public MedicationReminderViewModel MedicationReminderViewModel { get; set; } = new MedicationReminderViewModel();
+
+	public string UserId { get; set; } = string.Empty;
+	public string MedicationId { get; set; } = string.Empty;
+	public float Dosage { get; set; } = 0f;
+	public float Hour { get; set; } = 0f;
+	DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+	DateOnly EndDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+
+	public string Message { get; set; }
+}
+
+@functions {
+	private async Task HandleValidSubmit()
+	{
+		MedicationReminderViewModel.HourList.Add(Hour);
+		MedicationReminderViewModel.Dosage = (uint) Dosage;
+		MedicationReminderViewModel.UserId = Guid.Parse(UserId);
+		MedicationReminderViewModel.MedicationId = Guid.Parse(MedicationId);
+		MedicationReminderViewModel.StartDate = new DateTime(StartDate, TimeOnly.MinValue, DateTimeKind.Utc);
+		MedicationReminderViewModel.EndDate = new DateTime(EndDate, TimeOnly.MinValue, DateTimeKind.Utc);
+
+
+		var result = await MedicationReminderDataService.CreateMedicationReminderAsync(MedicationReminderViewModel);
+		if (result.IsSuccess)
+		{
+			Message = "Medication reminder created successfully";
+		}
+		else
+		{
+			Message = result.Message;
+			if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+			{
+				Message += result.ValidationErrors;
+			}
+		}
+		// NavigationManager.NavigateTo("/medicationreminderoverview");
+
+	}
+
+	private void Cancel()
+	{
+		NavigationManager.NavigateTo("/medicoverview");
+	}
+}
