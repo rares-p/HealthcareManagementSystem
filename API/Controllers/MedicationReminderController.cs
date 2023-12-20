@@ -24,7 +24,7 @@ namespace API.Controllers
 		public async Task<IActionResult> Get(Guid id)
 		{
 			var result = await Mediator.Send(new GetByIdMedicationReminderQuery(id));
-			return Ok(result);
+			return Ok(result.MedicationReminder);
 		}
 
 		[HttpPost]
