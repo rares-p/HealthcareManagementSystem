@@ -1,6 +1,6 @@
 ﻿using HealthcareManagementSystem.Domain.Entities;
 
-namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands
+namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands.CreateMedicationReminder
 {
     public class CreateMedicationReminderDto
     {

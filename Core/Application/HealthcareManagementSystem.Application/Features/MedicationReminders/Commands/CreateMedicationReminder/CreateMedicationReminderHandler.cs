@@ -2,7 +2,7 @@
 using HealthcareManagementSystem.Domain.Entities;
 using MediatR;
 
-namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands
+namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands.CreateMedicationReminder
 {
     public class CreateMedicationReminderHandler(IMedicationReminderRepository medicationReminderRepository,
             IUserRepository userRepository, IMedicationRepository medicationRepository)
@@ -66,7 +66,7 @@ namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Co
                     Id = medicationReminder.Value.Id,
                     UserId = medicationReminder.Value.UserId,
                     MedicationId = medicationReminder.Value.MedicationId,
-					Dosage = medicationReminder.Value.Dosage,
+                    Dosage = medicationReminder.Value.Dosage,
                     StartDate = medicationReminder.Value.StartDate,
                     EndDate = medicationReminder.Value.EndDate,
                     DayInterval = medicationReminder.Value.DayInterval,

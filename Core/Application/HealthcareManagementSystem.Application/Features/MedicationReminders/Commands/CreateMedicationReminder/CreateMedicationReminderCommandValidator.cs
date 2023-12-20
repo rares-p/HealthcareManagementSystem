@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands
+namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands.CreateMedicationReminder
 {
     public class CreateMedicationReminderCommandValidator : AbstractValidator<CreateMedicationReminderCommand>
     {
