@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands
+namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Commands.CreateMedicationReminder
 {
     public class CreateMedicationReminderCommand : IRequest<CreateMedicationReminderCommandResponse>
     {
