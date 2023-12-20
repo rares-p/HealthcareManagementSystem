@@ -29,31 +29,32 @@ else
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
-                            <th scope="col">Medication Reminder</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">Field</th>
+                                <th scope="col">Value</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr scope="row">
-                            <td class="event-name">@MedicationReminder.UserId</td>
-                        </tr>
-
-                        <tr scope="row">
-                            <td class="event-name">@MedicationReminder.MedicationId</td>
-                        </tr>
-                        <tr scope="row">
-                            <td class="event-name">
-                                <InputNumber id="medicationDosage" class="form-control" @bind-Value="@MedicationReminder.Dosage" placeholder="Enter medication Dosage"></InputNumber>
-                            </td>
-                        </tr>
-                        <tr scope="row">
-                            <td class="event-name">
-                                <InputNumber id="medicationDosage" class="form-control" @bind-Value="@MedicationReminder.DayInterval" placeholder="Enter medication day interval"></InputNumber>
-                            </td>
-                        </tr>
-                        <tr scope="row">
-                            <td class="event-name">@MedicationReminder.HourList</td>
-                        </tr>
+                            <tr scope="row">
+                                <th scope="col">UserId</th>
+                                <td class="event-name">@MedicationReminder.UserId</td>
+                            </tr>
+                            <tr scope="row">
+                                <th scope="col">MedicationId</th>
+                                <td class="event-name">@MedicationReminder.MedicationId</td>
+                            </tr>
+                            <tr scope="row">
+                                <th scope="col">Dosage</th>
+                                <td class="event-name">
+                                    <InputNumber id="medicationDosage" class="form-control" @bind-Value="@MedicationReminder.Dosage" placeholder="Enter medication Dosage"></InputNumber>
+                                </td>
+                            </tr>
+                            <tr scope="row">
+                                <th scope="col">Day Interval</th>
+                                <td class="event-name">
+                                    <InputNumber id="medicationDosage" class="form-control" @bind-Value="@MedicationReminder.DayInterval" placeholder="Enter medication day interval"></InputNumber>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -86,5 +87,6 @@ else
     {
         MedicationReminder.Id = Guid.Parse(Id);
         await MedicationReminderDataService.UpdateMedicationReminderAsync(MedicationReminder);
+        NavigationManager.NavigateTo("/medicationremindersoverview");
     }
 }

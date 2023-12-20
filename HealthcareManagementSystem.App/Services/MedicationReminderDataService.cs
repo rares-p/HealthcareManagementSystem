@@ -28,7 +28,7 @@ namespace HealthcareManagementSystem.App.Services
             {
                 throw new ApplicationException(content);
             }
-            var medication = JsonSerializer.Deserialize<Dictionary<string, MedicationReminderDto>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).Values.FirstOrDefault();
+            var medication = JsonSerializer.Deserialize<MedicationReminderDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return medication!;
         }
 
