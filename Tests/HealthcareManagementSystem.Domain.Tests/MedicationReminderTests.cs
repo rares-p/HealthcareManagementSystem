@@ -15,7 +15,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -39,7 +39,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(invalidDosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), invalidDosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -57,7 +57,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -75,7 +75,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -93,7 +93,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> emptyHourList = new List<float>(); // Empty hour list
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, emptyHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, emptyHourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -111,7 +111,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> invalidHourList = new List<float> { 8.30f, 12.15f, 25.0f }; // Invalid hour (25.0)
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, invalidHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, invalidHourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -129,7 +129,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> invalidMinuteHourList = new List<float> { 8.75f, 12.15f, 18.45f }; // Invalid minute in hour (8.75)
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, invalidMinuteHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, invalidMinuteHourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -147,7 +147,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> validMinuteHourList = new List<float> { 8.30f, 12.59f, 18.45f }; // Valid minute in hour (12.59)
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, validMinuteHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, validMinuteHourList);
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -165,7 +165,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -183,7 +183,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> invalidHourList = new List<float> { -1.0f, 12.15f, 24.0f }; // Invalid hours: -1.0, 24.0
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, invalidHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, invalidHourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -201,7 +201,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> invalidMinuteHourList = new List<float> { 8.30f, 12.75f, 18.45f }; // Invalid minute in hour (12.75)
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, invalidMinuteHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, invalidMinuteHourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -219,7 +219,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> nullHourList = null; // Null hour list
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, nullHourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, nullHourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -237,7 +237,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -255,7 +255,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, endDate, startDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, endDate, startDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -273,7 +273,7 @@ namespace HealthcareManagementSystem.Domain.Tests
             List<float> hourList = new List<float> { 8.30f, 12.15f, 18.45f };
 
             // Act
-            var result = MedicationReminder.Create(dosage, startDate, endDate, dayInterval, hourList);
+            var result = MedicationReminder.Create(Guid.NewGuid(), Guid.NewGuid(), dosage, startDate, endDate, dayInterval, hourList);
 
             // Assert
             Assert.False(result.IsSuccess);
