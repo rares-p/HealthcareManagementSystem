@@ -10,46 +10,45 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Department</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">
+            DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                                                                       href="https://datatables.net">official DataTables documentation</a>.
+        </p>
 
-            @foreach (var user in Users)
-            {
-                <tr scope="row">
-                    <td class="event-name">@user.FirstName</td>
-                    <td class="event-date">@user.LastName</td>
-                    <td class="event-price">@user.DateOfBirth.ToString("d")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    @* <table class="nested-table ms-auto me-auto">
-        <thead>
-            <tr>
-                <th class="category-event-header">Medic First Name</th>
-                <th class="category-event-header">Medic Last Name</th>
-                <th class="category-event-header">Medic Department Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var medic in Users)
-            {
-                <tr>
-                    <td class="event-name">@medic.FirstName</td>
-                    <td class="event-date">@medic.LastName</td>
-                    <td class="event-price">@medic.Department.ToString()</td>
-                </tr>
-            }
-        </tbody>
-    </table> *@
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Date of Birth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Users)
+                            {
+                                <tr scope="row">
+                                    <td class="event-name">@user.FirstName</td>
+                                    <td class="event-date">@user.LastName</td>
+                                    <td class="event-price">@user.DateOfBirth.ToString("d")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 @code {

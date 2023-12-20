@@ -1,0 +1,95 @@
+﻿<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>SB Admin 2 - Tables</title>
+
+<!-- Custom fonts for this template -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+<script src="https://kit.fontawesome.com/9439d1b4ae.js" crossorigin="anonymous"></script>
+
+<!-- Custom styles for this template -->
+<link href="css/bootstrap/sb-admin-2.css" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+    <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+        <Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Authorized>
+            <div id="wrapper">
+                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                    <!-- Sidebar - Brand -->
+                    <br />
+                    <NavLink class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fa-regular fa-hospital"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3">Healthcare Management System</div>
+                    </NavLink>
+
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                            <i class="fa-solid fa-house-medical"></i>
+                            <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Home
+                        </NavLink>
+                    </li>
+
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Overview
+                    </div>
+
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="useroverview">
+                            <i class="fas fa-fw fa-eye"></i>
+                            <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Users
+                        </NavLink>
+                    </li>
+
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="medicoverview">
+                            <i class="fas fa-fw fa-eye"></i>
+                            <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Medics
+                        </NavLink>
+                    </li>
+
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="medicationoverview">
+                            <i class="fas fa-fw fa-eye" />
+                            <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> View Medications
+                        </NavLink>
+                    </li>
+
+                    <!-- Heading -->
+                    <div class="sidebar-heading">
+                        Add
+                    </div>
+
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="addmedication">
+                            <i class="fas fa-fw fa-pills"></i>
+                            <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Add Medication
+                        </NavLink>
+                    </li>
+                </ul>
+            </div>
+        </Microsoft.AspNetCore.Components.Authorization.AuthorizeView.Authorized>
+    </Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+</Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
