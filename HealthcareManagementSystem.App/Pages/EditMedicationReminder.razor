@@ -64,7 +64,7 @@ else
 }
 
 @code {
-    [Parameter] public Guid Id { get; set; }
+    [Parameter] public string Id { get; set; }
 
     [Inject]
     public IMedicationReminderDataService MedicationReminderDataService { get; set; }
@@ -78,13 +78,13 @@ else
 @functions {
     protected override async Task OnInitializedAsync()
     {
-        MedicationReminder = await MedicationReminderDataService.GetMedicationReminderByIdAsync(Id);
+        MedicationReminder = await MedicationReminderDataService.GetMedicationReminderByIdAsync(Guid.Parse(Id));
     }
 
 
     private async void UpdateMedication()
     {
-        MedicationReminder.Id = Id;
+        MedicationReminder.Id = Guid.Parse(Id);
         await MedicationReminderDataService.UpdateMedicationReminderAsync(MedicationReminder);
     }
 }
