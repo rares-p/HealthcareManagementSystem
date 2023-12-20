@@ -28,6 +28,9 @@ namespace HealthcareManagementSystem.Domain.Entities
             if(string.IsNullOrWhiteSpace(lastName))
                 return Result<Medic>.Failure("Last Name is required");
 
+            if(!Enum.IsDefined(typeof(Department), department))
+                return Result<Medic>.Failure("Invalid department");
+
             return Result<Medic>.Success(new Medic(firstName, lastName, department, authDataId));
         }
 
@@ -47,9 +50,11 @@ namespace HealthcareManagementSystem.Domain.Entities
         }
         public Result<Medic> UpdateDepartment(Department department)
         {
+            if (!Enum.IsDefined(typeof(Department), department))
+                return Result<Medic>.Failure("Invalid department");
+
             Department = department;
             return Result<Medic>.Success(this);
         }
-
     }
 }

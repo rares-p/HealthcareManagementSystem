@@ -1,5 +1,6 @@
 ﻿using HealthcareManagementSystem.Domain.Common;
 using HealthcareManagementSystem.Domain.Data;
+using System;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
@@ -21,6 +22,16 @@ namespace HealthcareManagementSystem.Domain.Entities
 
         public static Result<Examination> Create(DateTime date, Department department, Guid userId, Guid medicId)
         {
+            if (!Enum.IsDefined(typeof(Department), department))
+            {
+                return Result<Examination>.Failure("Invalid department");
+            }
+
+            if (DateTime.Compare(date, new DateTime(1990, 1, 1)) < 0)
+            {
+                return Result<Examination>.Failure("Invalid date");
+            }
+
             return Result<Examination>.Success(new Examination(date, department, userId, medicId));
         }
     }
