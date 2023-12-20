@@ -30,6 +30,10 @@
 		<div class="col-md-4 mb-3">
 			<label for="dosage">Dosage</label>
 			<InputNumber id="dosage" class="form-control" @bind-Value="@Dosage" placeholder="Enter dosage"></InputNumber>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.Dosage)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
 		</div>
 		
 		<div class="col-md-4 mb-3">
@@ -49,8 +53,20 @@
 			</div>
 		</div>
 		<div class="col-md-4 mb-3">
+			<label for="dayInterval">Day Interval</label>
+			<InputNumber id="dayInterval" class="form-control" @bind-Value="@DayInterval" step="0.5" min="0" max="24"> </InputNumber>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.DayInterval)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
+		</div>
+		<div class="col-md-4 mb-3">
 			<label for="hour">Hour</label>
 			<InputNumber id="hour" class="form-control" @bind-Value="@Hour" step="0.5" min="0" max="24"> </InputNumber>
+			<ValidationMessage For="@(() => MedicationReminderViewModel.HourList)" />
+			<div class="valid-tooltip">
+				Looks good!
+			</div>
 		</div>
 	</div>
 
@@ -70,6 +86,7 @@
 	public string UserId { get; set; } = string.Empty;
 	public string MedicationId { get; set; } = string.Empty;
 	public float Dosage { get; set; } = 0f;
+	public float DayInterval { get; set; } = 0f;
 	public float Hour { get; set; } = 0f;
 	DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
 	DateOnly EndDate { get; set; } = DateOnly.FromDateTime(DateTime.Today);
@@ -82,6 +99,7 @@
 	{
 		MedicationReminderViewModel.HourList.Add(Hour);
 		MedicationReminderViewModel.Dosage = (uint) Dosage;
+		MedicationReminderViewModel.DayInterval = (uint) DayInterval;
 		MedicationReminderViewModel.UserId = Guid.Parse(UserId);
 		MedicationReminderViewModel.MedicationId = Guid.Parse(MedicationId);
 		MedicationReminderViewModel.StartDate = new DateTime(StartDate, TimeOnly.MinValue, DateTimeKind.Utc);
