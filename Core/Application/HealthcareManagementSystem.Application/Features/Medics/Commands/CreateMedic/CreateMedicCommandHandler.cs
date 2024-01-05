@@ -25,7 +25,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
                     ValidationsErrors = validatorResult.Errors.Select(e => e.ErrorMessage).ToList()
                 };
          
-            var department = (Department)Enum.Parse(typeof(Department), request.Department);
+            var department = request.Department;
             var medic = Medic.Create(request.FirstName, request.LastName, department, request.AuthDataId);
 
             if (!medic.IsSuccess)
@@ -47,7 +47,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
                     Id = medic.Value.Id,
                     FirstName = medic.Value.FirstName,
                     LastName = medic.Value.LastName,
-                    Department = medic.Value.Department.ToString(),
+                    Department = medic.Value.Department,
                     AuthDataId = medic.Value.AuthDataId
                 }
             };

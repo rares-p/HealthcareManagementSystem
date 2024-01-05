@@ -15,9 +15,9 @@ namespace HealthcareManagementSystem.Application.Features.MedicationReminders.Co
                 .GreaterThan(DateTime.Now).WithMessage("End date cannot be before current date!");
             RuleForEach(medication => medication.HourList)
                 .ExclusiveBetween(0, 24).WithMessage("Hour has to be in 0 and 24 interval!");
-            RuleFor(medication => medication.StartDate)
-                .GreaterThan(DateTime.Now).WithMessage("Start date cannot be before current date!")
-                .Must((model, startDate) => startDate < model.EndDate).WithMessage("Start date must be before end date!");
+            // RuleFor(medication => medication.StartDate)
+            //     .GreaterThan(DateTime.Now).WithMessage("Start date cannot be before current date!")
+            //     .Must((model, startDate) => startDate < model.EndDate).WithMessage("Start date must be before end date!");
         }
     }
 }

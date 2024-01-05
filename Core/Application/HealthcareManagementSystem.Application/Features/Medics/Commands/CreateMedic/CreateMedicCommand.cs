@@ -7,7 +7,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Department { get; set; }
+        public Department Department { get; set; }
         public string AuthDataId { get; set; }
     }
 }
