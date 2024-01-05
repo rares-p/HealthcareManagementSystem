@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System.Net.Mail;
 using HealthcareManagementSystem.Domain.Data;
 
 namespace HealthcareManagementSystem.Application.Features.Medics.Commands.CreateMedic
@@ -13,7 +12,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Create
             RuleFor(medic => medic.Department).Must(ExistsDepartment).WithMessage("Provided department is not valid.");
         }
 
-        private bool ExistsDepartment(string department)
+        private bool ExistsDepartment(Department department)
         {
             return Enum.IsDefined(typeof(Department), department);
         }

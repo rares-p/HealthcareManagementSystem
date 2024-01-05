@@ -12,7 +12,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
             RuleFor(medic => medic.LastName).Must(lastName => lastName is null || !string.IsNullOrWhiteSpace(lastName)).WithMessage("Invalid last name");
             RuleFor(medic => medic.Department).Must(department => department is null || ExistsDepartment(department)).WithMessage("Provided department is not valid.");
         }
-        private bool ExistsDepartment(string department)
+        private bool ExistsDepartment(Department? department)
         {
             return Enum.IsDefined(typeof(Department), department);
         }

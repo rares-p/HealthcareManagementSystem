@@ -21,7 +21,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Queries.GetById
                     Id = Medic.Value.Id,
                     FirstName = Medic.Value.FirstName,
                     LastName = Medic.Value.LastName,
-                    Department = Medic.Value.Department.ToString(),
+                    Department = Medic.Value.Department,
                     AuthDataId = Medic.Value.AuthDataId,
                 };
             }
