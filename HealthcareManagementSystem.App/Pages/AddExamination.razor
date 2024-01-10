@@ -1,0 +1,34 @@
+﻿@page "/addexamination/{Id:Guid}"
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.App.ViewModels
+
+<h3>Make an appointment</h3>
+
+@if (Medic == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<h5>@Medic.FirstName @Medic.LastName</h5>
+
+}
+
+@code {
+	[Parameter] public string Id { get; set; }
+
+	[Inject]
+	public IMedicDataService MedicDataService { get; set; }
+
+	[Inject]
+	public NavigationManager NavigationManager { get; set; }
+
+	public MedicViewModel Medic { get; set; }
+}
+
+@functions {
+	protected override async Task OnInitializedAsync()
+	{
+		Medic = await MedicDataService.GetMedicByIdAsync(Guid.Parse(Id));
+	}
+}

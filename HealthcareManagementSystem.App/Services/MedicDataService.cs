@@ -35,9 +35,17 @@ namespace HealthcareManagementSystem.App.Services
 			throw new NotImplementedException();
 		}
 
-		public Task<MedicViewModel> GetMedicByIdAsync(Guid id)
+		public async Task<MedicViewModel> GetMedicByIdAsync(Guid id)
 		{
-			throw new NotImplementedException();
+			var result = await httpClient.GetAsync($"{RequestUri}/{id}");
+			result.EnsureSuccessStatusCode();
+			var content = await result.Content.ReadAsStringAsync();
+			if (!result.IsSuccessStatusCode)
+			{
+				throw new ApplicationException(content);
+			}
+			var medic = JsonSerializer.Deserialize<MedicViewModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+			return medic!;
 		}
 
 		public async Task<List<GetMedic>> GetMedicsAsync()
