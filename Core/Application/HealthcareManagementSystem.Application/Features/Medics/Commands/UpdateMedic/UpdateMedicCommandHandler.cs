@@ -58,7 +58,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
 
             if (request.Department != null)
             {
-                var department = (Department)Enum.Parse(typeof(Department), request.Department);
+                var department = request.Department ?? Department.EmergencyMedicine;
                 medic.Value.UpdateDepartment(department);
             }
 
@@ -83,7 +83,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
                     Id = medic.Value.Id,
                     FirstName = medic.Value.FirstName,
                     LastName = medic.Value.LastName,
-                    Department = medic.Value.Department.ToString(),
+                    Department = medic.Value.Department,
                     AuthDataId = medic.Value.AuthDataId
                 }
             };

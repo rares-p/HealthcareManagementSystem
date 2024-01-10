@@ -23,7 +23,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Queries.GetAll
                     Id = medic.Id,
                     FirstName = medic.FirstName,
                     LastName = medic.LastName,
-                    Department = medic.Department.ToString(),
+                    Department = medic.Department,
                     AuthDataId = medic.AuthDataId,
                 }).ToList();
             }
