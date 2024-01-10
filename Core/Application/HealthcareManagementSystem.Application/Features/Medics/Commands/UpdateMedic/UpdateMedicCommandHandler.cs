@@ -83,7 +83,7 @@ namespace HealthcareManagementSystem.Application.Features.Medics.Commands.Update
                     Id = medic.Value.Id,
                     FirstName = medic.Value.FirstName,
                     LastName = medic.Value.LastName,
-                    Department = medic.Value.Department,
+                    Department = medic.Value.Department.ToString(),
                     AuthDataId = medic.Value.AuthDataId
                 }
             };
