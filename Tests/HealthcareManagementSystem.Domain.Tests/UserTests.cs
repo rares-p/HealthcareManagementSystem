@@ -8,13 +8,14 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void CreateUser_ValidData_Success()
         {
             // Arrange
+            string username = "username";
             string firstName = "John";
             string lastName = "Doe";
             DateTime dateOfBirth = new DateTime(1990, 5, 15);
             string authDataId = "someAuthDataId";
 
             // Act
-            var result = User.Create(firstName, lastName, dateOfBirth, authDataId);
+            var result = User.Create(username, firstName, lastName, dateOfBirth, authDataId);
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -26,15 +27,15 @@ namespace HealthcareManagementSystem.Domain.Tests
         }
 
         [Theory]
-        [InlineData("", "Doe", "someAuthDataId", "First Name is required")]
-        [InlineData("John", "", "someAuthDataId", "Last Name is required")]
-        public void CreateUser_InvalidData_Failure(string firstName, string lastName, string authDataId, string expectedErrorMessage)
+        [InlineData("username", "", "Doe", "someAuthDataId", "First Name is required")]
+        [InlineData("username", "John", "", "someAuthDataId", "Last Name is required")]
+        public void CreateUser_InvalidData_Failure(string username, string firstName, string lastName, string authDataId, string expectedErrorMessage)
         {
             // Arrange
             DateTime dateOfBirth = new DateTime(1990, 5, 15);
 
             // Act
-            var result = User.Create(firstName, lastName, dateOfBirth, authDataId);
+            var result = User.Create(username, firstName, lastName, dateOfBirth, authDataId);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -44,14 +45,15 @@ namespace HealthcareManagementSystem.Domain.Tests
         [Fact]
         public void CreateUser_InvalidDateOfBirth_Failure()
         {
-            // Arrange
-            string firstName = "John";
+			// Arrange
+			string username = "username";
+			string firstName = "John";
             string lastName = "Doe";
             DateTime futureDate = DateTime.Now.AddDays(1);
             string authDataId = "someAuthDataId";
 
             // Act
-            var result = User.Create(firstName, lastName, futureDate, authDataId);
+            var result = User.Create(username, firstName, lastName, futureDate, authDataId);
 
             // Assert
             Assert.False(result.IsSuccess);
@@ -62,7 +64,7 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void UpdateFirstName_ValidData_Success()
         {
             // Arrange
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
+            var user = User.Create("username", "John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
 
             // Act
             var result = user.UpdateFirstName("Jane");
@@ -78,7 +80,7 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void UpdateFirstName_InvalidData_Failure(string newFirstName)
         {
             // Arrange
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
+            var user = User.Create("username","John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
 
             // Act
             var result = user.UpdateFirstName(newFirstName);
@@ -93,7 +95,7 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void UpdateLastName_ValidData_Success()
         {
             // Arrange
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
+            var user = User.Create("username", "John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
 
             // Act
             var result = user.UpdateLastName("Smith");
@@ -109,7 +111,7 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void UpdateLastName_InvalidData_Failure(string newLastName)
         {
             // Arrange
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
+            var user = User.Create("username", "John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
 
             // Act
             var result = user.UpdateLastName(newLastName);
@@ -124,7 +126,7 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void UpdateDateOfBirth_ValidData_Success()
         {
             // Arrange
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
+            var user = User.Create("username", "John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
             DateTime newDateOfBirth = new DateTime(1985, 10, 20);
 
             // Act
@@ -139,7 +141,7 @@ namespace HealthcareManagementSystem.Domain.Tests
         public void UpdateDateOfBirth_InvalidData_Failure()
         {
             // Arrange
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
+            var user = User.Create("username", "John", "Doe", new DateTime(1990, 5, 15), "someAuthDataId").Value;
             DateTime futureDate = DateTime.Now.AddDays(1);
 
             // Act
