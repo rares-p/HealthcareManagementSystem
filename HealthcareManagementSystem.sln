@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.Application.Tests", "Tests\HealthcareManagementSystem.Application.Tests\HealthcareManagementSystem.Application.Tests.csproj", "{A102C77A-E436-4E76-96C1-75DF8213C52B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.API.IntegrationTests", "HealthcareManagementSystem.API.IntegrationTests\HealthcareManagementSystem.API.IntegrationTests.csproj", "{1645A065-41E3-4E96-80D3-163C6BE1D624}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +71,10 @@ Global
 		{A102C77A-E436-4E76-96C1-75DF8213C52B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A102C77A-E436-4E76-96C1-75DF8213C52B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A102C77A-E436-4E76-96C1-75DF8213C52B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76066C77-8021-43AA-A3BE-F64F4DDEE75E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76066C77-8021-43AA-A3BE-F64F4DDEE75E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76066C77-8021-43AA-A3BE-F64F4DDEE75E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76066C77-8021-43AA-A3BE-F64F4DDEE75E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1645A065-41E3-4E96-80D3-163C6BE1D624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1645A065-41E3-4E96-80D3-163C6BE1D624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1645A065-41E3-4E96-80D3-163C6BE1D624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1645A065-41E3-4E96-80D3-163C6BE1D624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
