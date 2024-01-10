@@ -13,8 +13,7 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">Name</th>
                 <th scope="col">Department</th>
             </tr>
         </thead>
@@ -22,11 +21,14 @@ else
 
             @foreach (var medic in Medics)
             {
-                <tr scope="row">
-                    <td class="event-name">@medic.FirstName</td>
-                    <td class="event-date">@medic.LastName</td>
-                    <td class="event-price">@medic.Department.ToString()</td>
-                </tr>
+	            <tr scope="row">
+                    <td class="name">
+                        <NavLink class="nav-link" href=@($"addexamination/{medic.Id}")>
+                            @medic.FirstName @medic.LastName
+                        </NavLink>
+                    </td>
+		            <td class="department">@medic.Department.ToString()</td>
+	            </tr>
             }
         </tbody>
     </table>

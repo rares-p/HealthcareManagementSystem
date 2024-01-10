@@ -19,7 +19,20 @@ namespace HealthcareManagementSystem.App.Services
 			this.tokenService = tokenService;
 		}
 
-		public async Task<List<MedicationReminderViewModel>> GetMedicationRemindersAsync()
+        public async Task<MedicationReminderDto> GetMedicationReminderByIdAsync(Guid id)
+        {
+            var result = await httpClient.GetAsync($"{RequestUri}/{id}");
+            result.EnsureSuccessStatusCode();
+            var content = await result.Content.ReadAsStringAsync();
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            var medication = JsonSerializer.Deserialize<MedicationReminderDto>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return medication!;
+        }
+
+        public async Task<List<MedicationReminderDto>> GetMedicationRemindersAsync()
 		{
 			var result = await httpClient.GetAsync(RequestUri);
 			result.EnsureSuccessStatusCode();
@@ -28,7 +41,7 @@ namespace HealthcareManagementSystem.App.Services
 			{
 				throw new ApplicationException(content);
 			}
-			var medications = JsonSerializer.Deserialize<Dictionary<string, List<MedicationReminderViewModel>>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).Values.FirstOrDefault();
+			var medications = JsonSerializer.Deserialize<Dictionary<string, List<MedicationReminderDto>>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).Values.FirstOrDefault();
 			return medications!;
 		}
 
@@ -43,11 +56,11 @@ namespace HealthcareManagementSystem.App.Services
 			return response!;
 		}
 
-		public async Task UpdateMedicationReminderAsync(MedicationReminderDto updateMedicationViewModel)
+		public async Task UpdateMedicationReminderAsync(MedicationReminderDto updateMedicationReminderDto)
 		{
 			httpClient.DefaultRequestHeaders.Authorization
 				= new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
-			var result = await httpClient.PutAsJsonAsync(RequestUri, updateMedicationViewModel);
+			var result = await httpClient.PutAsJsonAsync(RequestUri, updateMedicationReminderDto);
 		}
 
 	}

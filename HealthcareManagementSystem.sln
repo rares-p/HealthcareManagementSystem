@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareManagementSystem.Application.Tests", "Tests\HealthcareManagementSystem.Application.Tests\HealthcareManagementSystem.Application.Tests.csproj", "{A102C77A-E436-4E76-96C1-75DF8213C52B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareManagementSystem.API.IntegrationTests", "HealthcareManagementSystem.API.IntegrationTests\HealthcareManagementSystem.API.IntegrationTests.csproj", "{76066C77-8021-43AA-A3BE-F64F4DDEE75E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

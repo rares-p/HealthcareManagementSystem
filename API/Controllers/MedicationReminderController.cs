@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-	[ApiController]
 	public class MedicationReminderController : ApiControllerBase
 	{
 		[HttpGet]
@@ -26,7 +24,7 @@ namespace API.Controllers
 		public async Task<IActionResult> Get(Guid id)
 		{
 			var result = await Mediator.Send(new GetByIdMedicationReminderQuery(id));
-			return Ok(result);
+			return Ok(result.MedicationReminder);
 		}
 
 		[HttpPost]

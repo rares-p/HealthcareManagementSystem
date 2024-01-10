@@ -1,5 +1,85 @@
-﻿<h3>ViewMedicationReminders</h3>
+﻿@page "/medicationremindersoverview"
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.App.ViewModels
+
+<h3>All Medication Reminders</h3>
+
+@if (MedicationReminders == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">
+            DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the <a target="_blank"
+                                                                       href="https://datatables.net">official DataTables documentation</a>.
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th scope="col">User</th>
+                                <th scope="col">Medication</th>
+                                <th scope="col">Dosage</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Day Interval</th>
+                                <th scope="col">Hours</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var medicationReminder in MedicationReminders)
+                            {
+                                <tr scope="row">
+                                    <td class="event-name">@medicationReminder.UserId</td>
+                                    <td class="event-name">@medicationReminder.MedicationId</td>
+                                    <td class="event-name">@medicationReminder.Dosage</td>
+                                    <td class="event-name">@medicationReminder.StartDate</td>
+                                    <td class="event-name">@medicationReminder.EndDate</td>
+                                    <td class="event-name">@medicationReminder.DayInterval</td>
+                                    <td class="event-name">@string.Join(",", medicationReminder.HourList)</td>
+                                    <td class="event-name"><button @onclick="(() => NavigateToEdit(medicationReminder.Id))" class="btn-primary">Edit</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+    [Inject]
+    public IMedicationReminderDataService MedicationReminderDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<MedicationReminderDto> MedicationReminders { get; set; }
+}
+
+@functions {
+    protected override async Task OnInitializedAsync()
+    {
+        MedicationReminders = (await MedicationReminderDataService.GetMedicationRemindersAsync()).ToList();
+    }
+
+    public void NavigateToEdit(Guid id)
+    {
+        NavigationManager.NavigateTo($"/editmedicationreminder/{id}");
+    }
 
 }
