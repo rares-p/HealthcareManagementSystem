@@ -11,6 +11,27 @@
 else
 {
 	<h5>@Medic.FirstName @Medic.LastName</h5>
+    <h6>@Medic.Department.ToString()</h6>
+    <EditForm Model="@Examination" OnValidSubmit="@HandleValidSubmit">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary></ValidationSummary>
+
+        <div>
+
+            <div class="col-md-4 mb-3">
+                <label for="startDate">Start Date</label>
+                <InputDate TValue="DateOnly" id="startDate" class="form-control" @bind-Value="Date" />
+                <ValidationMessage For="@(() => Examination.Date)" />
+                <div class="valid-tooltip">
+                    Looks good!
+                </div>
+            </div>
+            
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add medication reminder</button>
+    </EditForm>
 
 }
 
@@ -19,11 +40,18 @@ else
 
 	[Inject]
 	public IMedicDataService MedicDataService { get; set; }
+	[Inject]
+	public IExaminationDataService ExaminationDataService { get; set; }
 
 	[Inject]
 	public NavigationManager NavigationManager { get; set; }
 
 	public MedicViewModel Medic { get; set; }
+	public CreateExaminationViewModel Examination { get; set; } = new CreateExaminationViewModel();
+
+	DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+	public string Message { get; set; }
+
 }
 
 @functions {
@@ -31,4 +59,29 @@ else
 	{
 		Medic = await MedicDataService.GetMedicByIdAsync(Guid.Parse(Id));
 	}
+
+	private async Task HandleValidSubmit()
+	{
+		Examination.Date = new DateTime(Date, TimeOnly.MinValue, DateTimeKind.Utc);
+		Examination.MedicId = Guid.Parse(Id);
+		Examination.Department = Medic.Department; 
+
+
+		var result = await ExaminationDataService.CreateExaminationAsync(Examination);
+		if (result.IsSuccess)
+		{
+			Message = "Medication reminder created successfully";
+		}
+		else
+		{
+			Message = result.Message;
+			if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+			{
+				Message += result.ValidationErrors;
+			}
+		}
+
+	}
+
+
 }
