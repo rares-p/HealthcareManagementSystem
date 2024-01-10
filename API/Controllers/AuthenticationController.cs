@@ -73,6 +73,7 @@ namespace API.Controllers
 
                 var result = await Mediator.Send(new CreateUserCommand
                 {
+                    Username = model.Username,
                     FirstName = model.Firstname,
                     LastName = model.Lastname,
                     DateOfBirth = model.DateOfBirth,

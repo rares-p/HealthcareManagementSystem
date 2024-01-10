@@ -14,9 +14,9 @@ namespace HealthcareManagementSystem.Application.Tests
         {
             var users = new List<User>
             {
-                User.Create("John", "Doe", new DateTime(1990, 5, 15), "auth123").Value,
-                User.Create("John2", "Doe", new DateTime(1990, 5, 15), "auth123").Value,
-                User.Create("John3", "Doe", new DateTime(1990, 5, 15), "auth123").Value
+                User.Create("username","John", "Doe", new DateTime(1990, 5, 15), "auth123").Value,
+                User.Create("username","John2", "Doe", new DateTime(1990, 5, 15), "auth123").Value,
+                User.Create("username","John3", "Doe", new DateTime(1990, 5, 15), "auth123").Value
             };
 
             var userRepository = Substitute.For<IUserRepository>();
@@ -46,7 +46,7 @@ namespace HealthcareManagementSystem.Application.Tests
             // Arrange
             var dbContext = Substitute.For<HealthcareManagementSystemDbContext>();
             var repository = new BaseRepository<User>(dbContext);
-            var user = User.Create("John", "Doe", new DateTime(1990, 5, 15), "auth123");
+            var user = User.Create("username", "John", "Doe", new DateTime(1990, 5, 15), "auth123");
 
             dbContext.Set<User>().Returns(Substitute.For<IQueryable<User>>());
             repository.AddAsync(Arg.Any<User>()).Returns(Task.FromResult(user));

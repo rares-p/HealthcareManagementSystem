@@ -19,6 +19,7 @@ namespace HealthcareManagementSystem.Application.Features.Users.Queries.GetById
                 return new UserDto
                 {
                     Id = user.Value.Id,
+                    Username = user.Value.Username,
                     FirstName = user.Value.FirstName,
                     LastName = user.Value.LastName,
                     DateOfBirth = user.Value.DateOfBirth,

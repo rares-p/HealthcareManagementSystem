@@ -25,7 +25,7 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.CreateU
                     ValidationsErrors = validatorResult.Errors.Select(e => e.ErrorMessage).ToList()
                 };
 
-            var user = User.Create(request.FirstName, request.LastName, request.DateOfBirth, request.AuthDataId);
+            var user = User.Create(request.Username, request.FirstName, request.LastName, request.DateOfBirth, request.AuthDataId);
             if (!user.IsSuccess)
             {
                 return new CreateUserCommandResponse
@@ -43,7 +43,8 @@ namespace HealthcareManagementSystem.Application.Features.Users.Commands.CreateU
                 User = new UserDto
                 {
                     Id = user.Value.Id,
-                    FirstName = user.Value.FirstName,
+                    Username = user.Value.Username,
+					FirstName = user.Value.FirstName,
                     LastName = user.Value.LastName,
                     DateOfBirth = user.Value.DateOfBirth,
                     AuthDataId = user.Value.AuthDataId
