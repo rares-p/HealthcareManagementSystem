@@ -71,11 +71,11 @@ else
 		var result = await ExaminationDataService.CreateExaminationAsync(Examination);
 		if (result.IsSuccess)
 		{
-			Message = "Medication reminder created successfully";
+			Message = "Medication reminder created successfully.";
 		}
 		else
 		{
-			Message = result.Message;
+			Message = "Something went wrong.";
 
 			if (result.ValidationsErrors is not null)
 			{

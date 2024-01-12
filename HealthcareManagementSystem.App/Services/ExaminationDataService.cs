@@ -45,6 +45,7 @@ namespace HealthcareManagementSystem.App.Services
             else
             {
 				var errorResponse = await result.Content.ReadAsStringAsync();   
+                //asta nu-mi parseasa validationsErrors da eu nu ma prind dc
 				var parsedResponse = JsonSerializer.Deserialize<ApiResponse<ExaminationViewModel>>(errorResponse);
                 return parsedResponse;
 			}
