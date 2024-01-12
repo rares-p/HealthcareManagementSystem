@@ -48,9 +48,9 @@
         else
         {
             Message = result.Message;
-            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            if (!string.IsNullOrWhiteSpace(result.ValidationsErrors))
             {
-                Message += result.ValidationErrors;
+                Message += result.ValidationsErrors;
             }
         }
 	    NavigationManager.NavigateTo("/medicationoverview");

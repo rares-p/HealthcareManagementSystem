@@ -17,7 +17,7 @@ else
         <DataAnnotationsValidator />
         <ValidationSummary></ValidationSummary>
 
-        <div class="col-md-4 mb-5">
+        <div class="col-md-4 mb-3">
 	        <h5>@Medic.FirstName @Medic.LastName</h5>
 	        <h6>@Medic.Department</h6>
 	        <label for="date">Date:</label>
@@ -28,8 +28,9 @@ else
 	        </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Add medication reminder</button>
+        <button type="submit" class="btn btn-primary">Add examination</button>
     </EditForm>
+	<div class="mt-2">@Message</div>
 
 }
 
@@ -40,15 +41,16 @@ else
 	public IMedicDataService MedicDataService { get; set; }
 	[Inject]
 	public IExaminationDataService ExaminationDataService { get; set; }
-
 	[Inject]
 	public NavigationManager NavigationManager { get; set; }
+	[Inject]
+	public ICurrentUserService CurrentUserService { get; set; }
 
 	public MedicViewModel Medic { get; set; }
 	public CreateExaminationViewModel Examination { get; set; } = new();
 
 	DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
-	public string Message { get; set; }
+	public string? Message { get; set; } = null;
 
 }
 
@@ -62,8 +64,9 @@ else
 	{
 		Examination.Date = new DateTime(Date, TimeOnly.MinValue, DateTimeKind.Utc);
 		Examination.MedicId = Guid.Parse(Id);
-		Examination.Department = Medic.Department; 
-
+		Examination.Department = Medic.Department;
+		var User = await CurrentUserService.GetCurrentUser();
+		Examination.UserId = User.Id;
 
 		var result = await ExaminationDataService.CreateExaminationAsync(Examination);
 		if (result.IsSuccess)
@@ -73,9 +76,9 @@ else
 		else
 		{
 			Message = result.Message;
-			if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+			if (!string.IsNullOrWhiteSpace(result.ValidationsErrors))
 			{
-				Message += result.ValidationErrors;
+				Message += result.ValidationsErrors;
 			}
 		}
 

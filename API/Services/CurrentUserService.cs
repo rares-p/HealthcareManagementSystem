@@ -28,22 +28,5 @@ namespace API.Services
 		{
 			return GetCurrentClaimsPrincipal()?.GetObjectId()!;
 		}
-
-		//public ClaimsPrincipal? GetCurrentClaimsPrincipal()
-		//{
-		//	return httpContextAccessor.HttpContext?.User;
-		//}
-
-		//public string? GetCurrentUserId()
-		//{
-		//	var claimsPrincipal = GetCurrentClaimsPrincipal();
-
-		//	if (claimsPrincipal == null || !claimsPrincipal.HasClaim(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier"))
-		//	{
-		//		return null;
-		//	}
-
-		//	return claimsPrincipal.FindFirst(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
-		//}
 	}
 }
