@@ -5,6 +5,6 @@ namespace HealthcareManagementSystem.Application.Persistence
 {
     public interface IUserRepository : IAsyncRepository<User>
     {
-        Task<Result<User>> GetUserByUsernameAsync(string username);
+        Task<Result<User>> GetByUsernameAsync(string username);
     }
 }

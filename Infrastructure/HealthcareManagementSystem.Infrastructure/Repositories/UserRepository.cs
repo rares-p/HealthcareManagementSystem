@@ -1,6 +1,7 @@
 ﻿using HealthcareManagementSystem.Application.Persistence;
 using HealthcareManagementSystem.Domain.Common;
 using HealthcareManagementSystem.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthcareManagementSystem.Infrastructure.Repositories
 {
@@ -11,10 +12,11 @@ namespace HealthcareManagementSystem.Infrastructure.Repositories
 
         }
 
-        public async Task<Result<User>> GetUserByUsernameAsync(string username)
+        public async Task<Result<User>> GetByUsernameAsync(string username)
         {
-            var result = await Context.Set<User>().FindAsync(username);
-            if (result == null)
+	        var result = await Context.Set<User>()
+		        .FirstOrDefaultAsync(u => u.Username == username); 
+	        if (result == null)
             {
                 return Result<User>.Failure($"Entity with username {username} not found");
             }
