@@ -1,6 +1,7 @@
 ﻿using HealthcareManagementSystem.App.Contracts;
 using HealthcareManagementSystem.App.ViewModels;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace HealthcareManagementSystem.App.Services
 {
@@ -8,11 +9,26 @@ namespace HealthcareManagementSystem.App.Services
 	{
 		private readonly HttpClient httpClient;
 		private readonly ITokenService tokenService;
+		private const string RequestUri = "api/v1/users";
 
 		public AuthenticationService(HttpClient httpClient, ITokenService tokenService)
 		{
 			this.httpClient = httpClient;
 			this.tokenService = tokenService;
+		}
+
+		public async Task<UserViewModel> GetCurrentUser()
+		{
+			//var result = await httpClient.GetAsync($"{RequestUri}/username/{username}");
+			//result.EnsureSuccessStatusCode();
+			//var content = await result.Content.ReadAsStringAsync();
+			//if (!result.IsSuccessStatusCode)
+			//{
+			//	throw new ApplicationException(content);
+			//}
+			//var user = JsonSerializer.Deserialize<UserViewModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+			//return user!;
+			throw new NotImplementedException();
 		}
 
 		public async Task Login(LoginViewModel loginRequest)

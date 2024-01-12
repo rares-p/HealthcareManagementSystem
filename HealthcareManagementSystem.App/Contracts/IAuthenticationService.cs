@@ -7,5 +7,6 @@ namespace HealthcareManagementSystem.App.Contracts
 		Task Login(LoginViewModel loginRequest);
 		Task Register(RegisterViewModel registerRequest);
 		Task Logout();
-	}
+		Task<UserViewModel> GetCurrentUser();
+    }
 }

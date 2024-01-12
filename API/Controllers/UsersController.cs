@@ -26,9 +26,9 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet]
+        [HttpGet("username/{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetByUsername([FromQuery] string username)
+        public async Task<IActionResult> GetByUsername(string username)
         {
 	        var result = await Mediator.Send(new GetByUsernameUserQuery(username));
 	        return Ok(result);
