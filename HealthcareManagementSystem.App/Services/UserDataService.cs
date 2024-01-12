@@ -31,5 +31,7 @@ namespace HealthcareManagementSystem.App.Services
             var users = JsonSerializer.Deserialize<Dictionary<string, List<UserViewModel>>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).Values.FirstOrDefault();
             return users!;
         }
-    }
+
+		
+	}
 }

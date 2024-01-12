@@ -63,7 +63,7 @@ namespace HealthcareManagementSystem.API.IntegrationTests.Controllers
             var result = JsonConvert.DeserializeObject<CreateMedicCommandResponse>(responseString);
 
             result?.Should().NotBeNull();
-            result!.Medic.Department.Should().Be(Department.EmergencyMedicine);
+            result!.Medic.Department.Should().Be(Department.EmergencyMedicine.ToString());
             result!.Medic.LastName.Should().Be("LastName");
         }
 

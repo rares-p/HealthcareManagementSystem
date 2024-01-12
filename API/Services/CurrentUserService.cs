@@ -14,19 +14,19 @@ namespace API.Services
         }
 
         public string UserId => httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier)!;
-        public ClaimsPrincipal GetCurrentClaimsPrincipal()
-        {
-            if (httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.User != null)
-            {
-                return httpContextAccessor.HttpContext.User;
-            }
+		public ClaimsPrincipal GetCurrentClaimsPrincipal()
+		{
+			if (httpContextAccessor.HttpContext != null && httpContextAccessor.HttpContext.User != null)
+			{
+				return httpContextAccessor.HttpContext.User;
+			}
 
-            return null!;
-        }
+			return null!;
+		}
 
-        public string GetCurrentUserId()
-        {
-            return GetCurrentClaimsPrincipal()?.GetObjectId()!;
-        }
-    }
+		public string GetCurrentUserId()
+		{
+			return GetCurrentClaimsPrincipal()?.GetObjectId()!;
+		}
+	}
 }

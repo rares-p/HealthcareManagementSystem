@@ -52,4 +52,8 @@ builder.Services.AddHttpClient<IExaminationDataService, ExaminationDataService>(
 {
 	client.BaseAddress = new Uri("https://localhost:7041/");
 });
+builder.Services.AddHttpClient<ICurrentUserService, CurrentUserService>(client =>
+{
+	client.BaseAddress = new Uri("https://localhost:7041/");
+});
 await builder.Build().RunAsync();

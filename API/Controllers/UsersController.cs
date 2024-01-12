@@ -3,6 +3,7 @@ using HealthcareManagementSystem.Application.Features.Users.Commands.DeleteUser;
 using HealthcareManagementSystem.Application.Features.Users.Commands.UpdateUser;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetAll;
 using HealthcareManagementSystem.Application.Features.Users.Queries.GetById;
+using HealthcareManagementSystem.Application.Features.Users.Queries.GetByUsernameUser;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -25,7 +26,15 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpGet("username/{username}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByUsername(string username)
+        {
+	        var result = await Mediator.Send(new GetByUsernameUserQuery(username));
+	        return Ok(result);
+        }
+
+		[HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(CreateUserCommand command)

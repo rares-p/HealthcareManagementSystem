@@ -3,6 +3,7 @@
 @using HealthcareManagementSystem.App.ViewModels
 
 <h3>Make an appointment</h3>
+<br/>
 
 @if (Medic == null)
 {
@@ -10,28 +11,26 @@
 }
 else
 {
-	<h5>@Medic.FirstName @Medic.LastName</h5>
-    <h6>@Medic.Department.ToString()</h6>
+	
     <EditForm Model="@Examination" OnValidSubmit="@HandleValidSubmit">
 
         <DataAnnotationsValidator />
         <ValidationSummary></ValidationSummary>
 
-        <div>
-
-            <div class="col-md-4 mb-3">
-                <label for="startDate">Start Date</label>
-                <InputDate TValue="DateOnly" id="startDate" class="form-control" @bind-Value="Date" />
-                <ValidationMessage For="@(() => Examination.Date)" />
-                <div class="valid-tooltip">
-                    Looks good!
-                </div>
-            </div>
-            
+        <div class="col-md-4 mb-3">
+	        <h5>@Medic.FirstName @Medic.LastName</h5>
+	        <h6>@Medic.Department</h6>
+	        <label for="date">Date:</label>
+	        <InputDate TValue="DateOnly" id="date" class="form-control" @bind-Value="Date"/>
+	        <ValidationMessage For="@(() => Examination.Date)"/>
+	        <div class="valid-tooltip">
+		        Looks good!
+	        </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Add medication reminder</button>
+        <button type="submit" class="btn btn-primary">Add examination</button>
     </EditForm>
+	<div class="mt-2">@Message</div>
 
 }
 
@@ -42,15 +41,16 @@ else
 	public IMedicDataService MedicDataService { get; set; }
 	[Inject]
 	public IExaminationDataService ExaminationDataService { get; set; }
-
 	[Inject]
 	public NavigationManager NavigationManager { get; set; }
+	[Inject]
+	public ICurrentUserService CurrentUserService { get; set; }
 
 	public MedicViewModel Medic { get; set; }
-	public CreateExaminationViewModel Examination { get; set; } = new CreateExaminationViewModel();
+	public CreateExaminationViewModel Examination { get; set; } = new();
 
 	DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Today);
-	public string Message { get; set; }
+	public string? Message { get; set; } = null;
 
 }
 
@@ -64,8 +64,9 @@ else
 	{
 		Examination.Date = new DateTime(Date, TimeOnly.MinValue, DateTimeKind.Utc);
 		Examination.MedicId = Guid.Parse(Id);
-		Examination.Department = Medic.Department; 
-
+		Examination.Department = Medic.Department;
+		var User = await CurrentUserService.GetCurrentUser();
+		Examination.UserId = User.Id;
 
 		var result = await ExaminationDataService.CreateExaminationAsync(Examination);
 		if (result.IsSuccess)
@@ -75,9 +76,14 @@ else
 		else
 		{
 			Message = result.Message;
-			if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+
+			if (result.ValidationsErrors is not null)
 			{
-				Message += result.ValidationErrors;
+				foreach(var error in result.ValidationsErrors)
+				{
+					Message += result.ValidationsErrors + "\n";
+
+				}
 			}
 		}
 

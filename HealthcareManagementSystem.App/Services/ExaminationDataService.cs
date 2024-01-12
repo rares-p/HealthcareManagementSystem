@@ -36,10 +36,18 @@ namespace HealthcareManagementSystem.App.Services
             httpClient.DefaultRequestHeaders.Authorization
                 = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
             var result = await httpClient.PostAsJsonAsync(RequestUri, examinationViewModel);
-            result.EnsureSuccessStatusCode();
-            var response = await result.Content.ReadFromJsonAsync<ApiResponse<ExaminationViewModel>>();
-            response!.IsSuccess = result.IsSuccessStatusCode;
-            return response!;
+            if (result.IsSuccessStatusCode)
+            {
+                var response = await result.Content.ReadFromJsonAsync<ApiResponse<ExaminationViewModel>>();
+                response!.IsSuccess = result.IsSuccessStatusCode;
+                return response!;
+            }
+            else
+            {
+				var errorResponse = await result.Content.ReadAsStringAsync();   
+				var parsedResponse = JsonSerializer.Deserialize<ApiResponse<ExaminationViewModel>>(errorResponse);
+                return parsedResponse;
+			}
         }
     }
 }

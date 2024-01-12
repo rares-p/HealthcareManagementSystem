@@ -5,11 +5,8 @@ using HealthcareManagementSystem.Application.Features.Medics.Commands.CreateMedi
 using HealthcareManagementSystem.Application.Features.Users.Commands.CreateUser;
 using HealthcareManagementSystem.Application.Models.Identity;
 using HealthcareManagementSystem.Application.Models.Identity.Registration;
-using HealthcareManagementSystem.Domain.Common;
 using HealthcareManagementSystem.Identity.Models;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace API.Controllers
 {

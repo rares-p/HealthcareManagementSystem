@@ -8,6 +8,7 @@ namespace HealthcareManagementSystem.App.Services
 	{
 		private readonly HttpClient httpClient;
 		private readonly ITokenService tokenService;
+		private const string RequestUri = "api/v1/authentication";
 
 		public AuthenticationService(HttpClient httpClient, ITokenService tokenService)
 		{
