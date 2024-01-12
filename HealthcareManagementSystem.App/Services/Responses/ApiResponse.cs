@@ -3,7 +3,7 @@
     public class ApiResponse<T>
     {
         public string Message { get; set; } = string.Empty;
-        public string? ValidationsErrors { get; set; }
+        public List<string>? ValidationsErrors { get; set; }
         public bool IsSuccess { get; set; }
         public T? Data { get; set; }
     }

@@ -74,9 +74,13 @@
         else
         {
             Message = result.Message;
-            if (!string.IsNullOrWhiteSpace(result.ValidationsErrors))
+            if (result.ValidationsErrors is not null)
             {
-                Message += result.ValidationsErrors;
+                foreach (var error in result.ValidationsErrors)
+                {
+                    Message += result.ValidationsErrors + "\n";
+
+                }
             }
         }
     }
