@@ -1,0 +1,56 @@
+﻿@page "/examinationsoverview"
+@using HealthcareManagementSystem.App.Contracts
+@using HealthcareManagementSystem.App.ViewModels
+
+<h3>ExaminationsOverview</h3>
+
+@if (Examinations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Department</th>
+                <th scope="col">Department</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var examination in Examinations)
+            {
+                <tr scope="row">
+                    <td class="department">
+                        @examination.Department
+                    </td>
+                    <td class="date"> @examination.Date</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public IExaminationDataService ExaminationDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<ExaminationViewModel> Examinations { get; set; }
+    [Inject]
+    public ICurrentUserService CurrentUserService { get; set; }
+
+}
+
+    @functions {
+    protected override async Task OnInitializedAsync()
+    {
+        var examinations = (await ExaminationDataService.GetExaminationsAsync()).ToList();
+        var userId = await CurrentUserService.GetCurrentUserId();
+        Examinations = examinations.Where(exam => exam.UserId == userId).ToList();
+    }
+
+}
