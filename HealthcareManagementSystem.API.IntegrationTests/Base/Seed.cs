@@ -20,9 +20,9 @@ namespace HealthcareManagementSystem.API.IntegrationTests.Base
 
             var users = new List<User>
             {
-                User.Create("Test", "1", DateTime.Now, "testauth").Value,
-                User.Create("Test", "2", DateTime.Now, "testauth").Value,
-                User.Create("Test", "3", DateTime.Now, "testauth").Value,
+                User.Create("test1","Test", "1", DateTime.Now, "testauth").Value,
+                User.Create("test2","Test", "2", DateTime.Now, "testauth").Value,
+                User.Create("test3","Test", "3", DateTime.Now, "testauth").Value,
             };
             context.Users.AddRange(users);
 

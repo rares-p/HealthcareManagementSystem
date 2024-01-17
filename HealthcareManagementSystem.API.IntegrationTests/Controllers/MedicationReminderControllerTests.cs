@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Claims;
+using HealthcareManagementSystem.Application.Features.MedicationReminders;
 using HealthcareManagementSystem.Application.Features.MedicationReminders.Commands.CreateMedicationReminder;
 using HealthcareManagementSystem.Application.Features.MedicationReminders.Commands.UpdateMedicationReminder;
 
@@ -14,7 +15,7 @@ namespace HealthcareManagementSystem.API.IntegrationTests.Controllers
 {
     public class MedicationReminderControllerTests : BaseApplicationContextTests
     {
-        private const string RequestUri = "/api/MedicationReminder";
+        private const string RequestUri = "/api/v1/MedicationReminder";
 
 
         [Fact]
@@ -51,10 +52,10 @@ namespace HealthcareManagementSystem.API.IntegrationTests.Controllers
                 getByIdResponse.EnsureSuccessStatusCode();
 
                 var getByIdResponseString = await getByIdResponse.Content.ReadAsStringAsync();
-                var getByIdResult = JsonConvert.DeserializeObject<GetByIdMedicationReminderResponse>(getByIdResponseString);
+                var getByIdResult = JsonConvert.DeserializeObject<MedicationRemindersDto>(getByIdResponseString);
 
                 getByIdResult.Should().NotBeNull();
-                getByIdResult?.MedicationReminder.UserId.Should().Be(medicationReminder.UserId);
+                getByIdResult?.UserId.Should().Be(medicationReminder.UserId);
             }
         }
 

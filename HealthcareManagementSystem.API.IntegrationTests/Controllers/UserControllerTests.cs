@@ -33,6 +33,7 @@ namespace HealthcareManagementSystem.API.IntegrationTests.Controllers
         {
             var user = new CreateUserCommand
             {
+                Username = "test1",
                 FirstName = "TestName",
                 LastName = "TestName2",
                 DateOfBirth = DateTime.Now,
@@ -55,6 +56,7 @@ namespace HealthcareManagementSystem.API.IntegrationTests.Controllers
         {
             var user = new CreateUserCommand
             {
+                Username = "test1",
                 FirstName = "TestName",
                 LastName = "TestName2",
                 DateOfBirth = DateTime.Now,

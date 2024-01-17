@@ -4,7 +4,9 @@ using HealthcareManagementSystem.Application.Features.MedicationReminders.Querie
 using HealthcareManagementSystem.Application.Features.MedicationReminders.Queries.GetByIdMedicationReminder;
 using HealthcareManagementSystem.Application.Features.Medics.Commands.UpdateMedic;
 using HealthcareManagementSystem.Application.Features.Medics.Queries.GetById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -30,9 +32,12 @@ namespace API.Controllers
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		//[Authorize]
 		public async Task<IActionResult> Create(CreateMedicationReminderCommand command)
-		{
-			var result = await Mediator.Send(command);
+        {
+            //var userIdentity = HttpContext.User.Identity as ClaimsIdentity;
+			//command.UserId = userIdentity.FindFirst()
+            var result = await Mediator.Send(command);
 			if (!result.Success)
 				return BadRequest(result);
 			return Ok(result);

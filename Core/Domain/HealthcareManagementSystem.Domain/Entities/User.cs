@@ -1,6 +1,4 @@
-﻿using System.Net.Mail;
-using System.Text.RegularExpressions;
-using HealthcareManagementSystem.Domain.Common;
+﻿using HealthcareManagementSystem.Domain.Common;
 
 namespace HealthcareManagementSystem.Domain.Entities
 {
